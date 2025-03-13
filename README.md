@@ -34,6 +34,7 @@ We welcome contributions! Here's how you can help:
 ![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/CHANNEL_ID?style=social)
 
 **Channel**: https://www.youtube.com/@ChannelName
+
 **LinkedIn**: [Author Name](https://www.linkedin.com/in/author-profile/)
 **Role**: Professional Role
 **Tags**: `#tag1` `#tag2` `#tag3` `#tag4`
@@ -44,47 +45,6 @@ We welcome contributions! Here's how you can help:
 - Topic 3
 - Topic 4
 ```
-
-## 🔄 Automatic Updates
-
-This repository uses GitHub Actions to maintain data quality and freshness:
-
-### 📊 Subscriber Count Updates
-- Updates YouTube subscriber counts daily
-- Uses YouTube Data API for accurate statistics
-- Automatically commits changes to the repository
-
-### 🔍 Link Validation
-- Validates all YouTube and LinkedIn links daily
-- Checks for broken or invalid links
-- Creates issues for any problems found
-- Runs on all Pull Requests to prevent invalid links
-
-### Setting up Local Development
-
-1. Get API Keys:
-   - YouTube Data API key from [Google Cloud Console](https://console.cloud.google.com/)
-   - LinkedIn API token (optional, for link validation)
-
-2. Create a `.env` file in the root directory:
-   ```env
-   YOUTUBE_API_KEY=your_api_key_here
-   LINKEDIN_TOKEN=your_token_here
-   ```
-
-3. Install dependencies:
-   ```bash
-   pip install google-api-python-client python-dotenv requests
-   ```
-
-4. Run the scripts:
-   ```bash
-   # Update subscriber counts
-   python .github/scripts/update_subscribers.py
-   
-   # Validate links
-   python .github/scripts/validate_links.py
-   ```
 
 ## 🎯 Future Improvements
 

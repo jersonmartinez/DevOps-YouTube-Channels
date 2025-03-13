@@ -140,11 +140,29 @@ class LinkValidator:
                 json.dump(self.invalid_links, f, indent=2)
             raise Exception("Invalid links found. Check invalid_links.json for details.")
 
+def validate_link(url):
+    try:
+        response = requests.head(url, allow_redirects=True)
+        return response.status_code == 200
+    except requests.RequestException:
+        return False
+
+def validate_readme_links():
+    with open('README.md', 'r') as file:
+        content = file.readlines()
+
+    for line in content:
+        if 'http' in line:
+            url = line.split('(')[1].split(')')[0]
+            if not validate_link(url):
+                print(f'Invalid link: {url}')
+
 def main():
     """Main function to validate links."""
     repo_path = Path(__file__).parent.parent.parent
     validator = LinkValidator()
     validator.validate_repository(repo_path)
+    validate_readme_links()
 
 if __name__ == '__main__':
     main()

@@ -4,6 +4,16 @@ from pathlib import Path
 from typing import Dict, List, Optional
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from dotenv import load_dotenv
+
+load_dotenv()
+
+YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
+CHANNELS = {
+    'ChannelName1': 'CHANNEL_ID_1',
+    'ChannelName2': 'CHANNEL_ID_2',
+    # Add more channels here
+}
 
 def get_youtube_client() -> Optional[build]:
     """Create a YouTube API client."""
@@ -104,6 +114,26 @@ def update_markdown_file(file_path: str, stats: Dict[str, int]) -> None:
     with open(file_path, 'w', encoding='utf-8') as f:
         f.write(content)
 
+def get_subscriber_count(channel_id):
+    youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
+    request = youtube.channels().list(part='statistics', id=channel_id)
+    response = request.execute()
+    return response['items'][0]['statistics']['subscriberCount']
+
+def update_readme():
+    with open('README.md', 'r') as file:
+        content = file.readlines()
+
+    for i, line in enumerate(content):
+        if '![YouTube Channel Subscribers]' in line:
+            channel_name = line.split('[')[1].split(']')[0]
+            if channel_name in CHANNELS:
+                subscriber_count = get_subscriber_count(CHANNELS[channel_name])
+                content[i] = f'![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/{CHANNELS[channel_name]}?style=social)\n\n'
+
+    with open('README.md', 'w') as file:
+        file.writelines(content)
+
 def main():
     """Main function to update YouTube subscriber counts."""
     youtube = get_youtube_client()
@@ -126,3 +156,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    update_readme()
