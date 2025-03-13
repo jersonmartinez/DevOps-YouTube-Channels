@@ -12,7 +12,7 @@ This category includes channels specialized in cloud computing, infrastructure, 
 ## 📺 Spanish Channels | Canales en Español
 
 ### DaveOps
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCxbNYB3B7K8LWsOdar8W_qg?style=social)
+[![@DaveOps](https://img.shields.io/youtube/channel/subscribers/UCxbNYB3B7K8LWsOdar8W_qg?label=%40DaveOps&style=social)](https://www.youtube.com/@DaveOps?sub_confirmation=1)
 
 **Canal**: https://www.youtube.com/@DaveOps
 **LinkedIn**: [Dave J. Franco Finol](https://www.linkedin.com/in/davejfranco/)
@@ -28,7 +28,7 @@ This category includes channels specialized in cloud computing, infrastructure, 
 ---
 
 ### Oscar Zúñiga
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC2kWjTJ0pUTkQoAz6o6hqXQ?style=social)
+[![@multicloud.academy](https://img.shields.io/youtube/channel/subscribers/UC2kWjTJ0pUTkQoAz6o6hqXQ?label=%40multicloud.academy&style=social)](https://www.youtube.com/@multicloud.academy?sub_confirmation=1)
 
 **Canal**: https://www.youtube.com/@multicloud.academy
 **LinkedIn**: [Oscar Zúñiga](https://www.linkedin.com/in/multicloudacademy/)
@@ -44,7 +44,7 @@ This category includes channels specialized in cloud computing, infrastructure, 
 ---
 
 ### Cloud Mentor
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCzNqP6CBtN7-DVtYORvhgiA?style=social)
+[![@CloudMentor](https://img.shields.io/youtube/channel/subscribers/UCzNqP6CBtN7-DVtYORvhgiA?label=%40CloudMentor&style=social)](https://www.youtube.com/@CloudMentor?sub_confirmation=1)
 
 **Canal**: https://www.youtube.com/@CloudMentor
 **LinkedIn**: [Javier Moreno](https://www.linkedin.com/in/javiermorenohelguera/)
@@ -60,7 +60,7 @@ This category includes channels specialized in cloud computing, infrastructure, 
 ---
 
 ### Capacítate para la Nube
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCCX-SPzJ_ZTiBhJHv9A4_Gw?style=social)
+[![@CapacitateParaLaNube](https://img.shields.io/youtube/channel/subscribers/UCCX-SPzJ_ZTiBhJHv9A4_Gw?label=%40CapacitateParaLaNube&style=social)](https://www.youtube.com/@CapacitateParaLaNube?sub_confirmation=1)
 
 **Canal**: https://www.youtube.com/@CapacitateParaLaNube
 **LinkedIn**: [Andrés Zepeda](https://www.linkedin.com/in/andres-zepeda/)
@@ -76,7 +76,7 @@ This category includes channels specialized in cloud computing, infrastructure, 
 ## 📺 English Channels
 
 ### DevOps Toolkit
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCfz8x0lVzJpb_dgWm9kPVfw?style=social)
+[![@DevOpsToolkit](https://img.shields.io/youtube/channel/subscribers/UCfz8x0lVzJpb_dgWm9kPVfw?label=%40DevOpsToolkit&style=social)](https://www.youtube.com/@DevOpsToolkit?sub_confirmation=1)
 
 **Channel**: https://www.youtube.com/@DevOpsToolkit
 **LinkedIn**: [Viktor Farcic](https://www.linkedin.com/in/viktorfarcic/)
@@ -92,7 +92,7 @@ This category includes channels specialized in cloud computing, infrastructure, 
 ---
 
 ### Cloud With Chris
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC6KrOsGhSVJBszv_AwbcMxA?style=social)
+[![@CloudWithChris](https://img.shields.io/youtube/channel/subscribers/UC6KrOsGhSVJBszv_AwbcMxA?label=%40CloudWithChris&style=social)](https://www.youtube.com/@CloudWithChris?sub_confirmation=1)
 
 **Channel**: https://www.youtube.com/@CloudWithChris
 **LinkedIn**: [Chris Reddington](https://www.linkedin.com/in/chrisreddington/)
@@ -108,7 +108,7 @@ This category includes channels specialized in cloud computing, infrastructure, 
 ---
 
 ### Stephane Maarek
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC2kWjTJ0pUTkQoAz6o6hqXQ?style=social)
+[![@StephaneMaarek](https://img.shields.io/youtube/channel/subscribers/UC2kWjTJ0pUTkQoAz6o6hqXQ?label=%40StephaneMaarek&style=social)](https://www.youtube.com/@StephaneMaarek?sub_confirmation=1)
 
 **Channel**: https://www.youtube.com/@StephaneMaarek
 **LinkedIn**: [Stephane Maarek](https://www.linkedin.com/in/stephanemaarek/)

@@ -12,7 +12,7 @@ This category includes channels focused on Platform Engineering, DevOps practice
 ## 📺 Spanish Channels | Canales en Español
 
 ### return(GiS)
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCUDb8G3qTQBqxFzfLB7aKXQ?style=social)
+[![@returngis](https://img.shields.io/youtube/channel/subscribers/UCUDb8G3qTQBqxFzfLB7aKXQ?label=%40returngis&style=social)](https://www.youtube.com/@returngis?sub_confirmation=1)
 
 **Canal**: https://www.youtube.com/@returngis
 **LinkedIn**: [Giovanni Salinas](https://www.linkedin.com/in/giovannisalinas/)
@@ -28,7 +28,7 @@ This category includes channels focused on Platform Engineering, DevOps practice
 ---
 
 ### Pelado Nerd
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCrBzBOMcUVV8ryyAU_c6P5g?style=social)
+[![@PeladoNerd](https://img.shields.io/youtube/channel/subscribers/UCrBzBOMcUVV8ryyAU_c6P5g?label=%40PeladoNerd&style=social)](https://www.youtube.com/@PeladoNerd?sub_confirmation=1)
 
 **Canal**: https://www.youtube.com/@PeladoNerd
 **LinkedIn**: [Pablo Fredrikson](https://www.linkedin.com/in/pablofredrikson/)
@@ -44,7 +44,7 @@ This category includes channels focused on Platform Engineering, DevOps practice
 ---
 
 ### 295Devops
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCUJXmiZHT8wHRx6s3l-qHtQ?style=social)
+[![@295devops](https://img.shields.io/youtube/channel/subscribers/UCUJXmiZHT8wHRx6s3l-qHtQ?label=%40295devops&style=social)](https://www.youtube.com/@295devops?sub_confirmation=1)
 
 **Canal**: https://www.youtube.com/@295devops
 **LinkedIn**: [Rossana Suarez](https://www.linkedin.com/in/roxsross/)
@@ -60,7 +60,7 @@ This category includes channels focused on Platform Engineering, DevOps practice
 ## 📺 English Channels
 
 ### KodeKloud
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCSWj8mqQCcrcBlXPi4ThRDQ?style=social)
+[![@KodeKloud](https://img.shields.io/youtube/channel/subscribers/UCSWj8mqQCcrcBlXPi4ThRDQ?label=%40KodeKloud&style=social)](https://www.youtube.com/@KodeKloud?sub_confirmation=1)
 
 **Channel**: https://www.youtube.com/@KodeKloud
 **LinkedIn**: [Mumshad Mannambeth](https://www.linkedin.com/in/mumshad-mannambeth/)
@@ -76,7 +76,7 @@ This category includes channels focused on Platform Engineering, DevOps practice
 ---
 
 ### DevOps Journey
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC4Snw5yrSDMXys31I18U3gg?style=social)
+[![@DevOpsJourney](https://img.shields.io/youtube/channel/subscribers/UC4Snw5yrSDMXys31I18U3gg?label=%40DevOpsJourney&style=social)](https://www.youtube.com/@DevOpsJourney?sub_confirmation=1)
 
 **Channel**: https://www.youtube.com/@DevOpsJourney
 **LinkedIn**: [Anton Putra](https://www.linkedin.com/in/antonputra/)
@@ -92,7 +92,7 @@ This category includes channels focused on Platform Engineering, DevOps practice
 ---
 
 ### DevOps Simplified
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC6VkhPuCCwR_kG0GExLKdrQ?style=social)
+[![@DevOpsSimplified](https://img.shields.io/youtube/channel/subscribers/UC6VkhPuCCwR_kG0GExLKdrQ?label=%40DevOpsSimplified&style=social)](https://www.youtube.com/@DevOpsSimplified?sub_confirmation=1)
 
 **Channel**: https://www.youtube.com/@DevOpsSimplified
 **LinkedIn**: [Marcel Dempers](https://www.linkedin.com/in/marceldempers/)

@@ -12,7 +12,7 @@ This category focuses on infrastructure automation, CI/CD, and Infrastructure as
 ## 📺 Spanish Channels | Canales en Español
 
 ### Amin Espinoza
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC0YBGZw4QRRqPGb0u0E3Upg?style=social)
+[![@AminEspinoza](https://img.shields.io/youtube/channel/subscribers/UC0YBGZw4QRRqPGb0u0E3Upg?label=%40AminEspinoza&style=social)](https://www.youtube.com/@AminEspinoza?sub_confirmation=1)
 
 **Canal**: https://www.youtube.com/@AminEspinoza
 **LinkedIn**: [Amin Espinoza](https://www.linkedin.com/in/aminespinoza/)
@@ -28,7 +28,7 @@ This category focuses on infrastructure automation, CI/CD, and Infrastructure as
 ---
 
 ### Caos Binario
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC2ZYz-QxV7dE7DD9QmJ0u3Q?style=social)
+[![@caosbinario](https://img.shields.io/youtube/channel/subscribers/UC2ZYz-QxV7dE7DD9QmJ0u3Q?label=%40caosbinario&style=social)](https://www.youtube.com/@caosbinario?sub_confirmation=1)
 
 **Canal**: https://www.youtube.com/@caosbinario
 **LinkedIn**: [Ariel Molina](https://www.linkedin.com/in/arielhmolina/)
@@ -44,7 +44,7 @@ This category focuses on infrastructure automation, CI/CD, and Infrastructure as
 ## 📺 English Channels
 
 ### Jeff Geerling
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCR-DXc1voovS8nhAvccRZhg?style=social)
+[![@JeffGeerling](https://img.shields.io/youtube/channel/subscribers/UCR-DXc1voovS8nhAvccRZhg?label=%40JeffGeerling&style=social)](https://www.youtube.com/@JeffGeerling?sub_confirmation=1)
 
 **Channel**: https://www.youtube.com/@JeffGeerling
 **LinkedIn**: [Jeff Geerling](https://www.linkedin.com/in/geerlingguy/)
@@ -60,7 +60,7 @@ This category focuses on infrastructure automation, CI/CD, and Infrastructure as
 ---
 
 ### Anton Putra
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCBGOUQHNNtNGcGzVq5rIXjw?style=social)
+[![@AntonPutra](https://img.shields.io/youtube/channel/subscribers/UCBGOUQHNNtNGcGzVq5rIXjw?label=%40AntonPutra&style=social)](https://www.youtube.com/@AntonPutra?sub_confirmation=1)
 
 **Channel**: https://www.youtube.com/@AntonPutra
 **LinkedIn**: [Anton Putra](https://www.linkedin.com/in/antonputra/)
@@ -76,7 +76,7 @@ This category focuses on infrastructure automation, CI/CD, and Infrastructure as
 ---
 
 ### DevOps Directive
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC4MdpjzjPuop_qWNAvR23JA?style=social)
+[![@DevOpsDirective](https://img.shields.io/youtube/channel/subscribers/UC4MdpjzjPuop_qWNAvR23JA?label=%40DevOpsDirective&style=social)](https://www.youtube.com/@DevOpsDirective?sub_confirmation=1)
 
 **Channel**: https://www.youtube.com/@DevOpsDirective
 **LinkedIn**: [Michael Levan](https://www.linkedin.com/in/michaellevan/)

@@ -12,7 +12,7 @@ This category includes channels focused on security, DevSecOps, and cybersecurit
 ## 📺 Spanish Channels | Canales en Español
 
 ### Pabpereza
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCxJAB6WxVh1T-2klqhE_QKA?style=social)
+[![@Pabpereza](https://img.shields.io/youtube/channel/subscribers/UCxJAB6WxVh1T-2klqhE_QKA?label=%40Pabpereza&style=social)](https://www.youtube.com/@Pabpereza?sub_confirmation=1)
 
 **Canal**: https://www.youtube.com/@Pabpereza
 **LinkedIn**: [Pablo Pérez-Aradros Calvo](https://www.linkedin.com/in/pabpereza/)
@@ -28,7 +28,7 @@ This category includes channels focused on security, DevSecOps, and cybersecurit
 ---
 
 ### No Solo Hacking
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC1szFCBUWXY3ESff8dJjjzw?style=social)
+[![@NoSoloHacking](https://img.shields.io/youtube/channel/subscribers/UC1szFCBUWXY3ESff8dJjjzw?label=%40NoSoloHacking&style=social)](https://www.youtube.com/@NoSoloHacking?sub_confirmation=1)
 
 **Canal**: https://www.youtube.com/@NoSoloHacking
 **LinkedIn**: [Carlos Melantuche](https://www.linkedin.com/in/carlosmelantuche/)
@@ -44,7 +44,7 @@ This category includes channels focused on security, DevSecOps, and cybersecurit
 ---
 
 ### S4vitar
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCNHWpNqiM8yOQcHXtsluD7Q?style=social)
+[![@s4vitar](https://img.shields.io/youtube/channel/subscribers/UCNHWpNqiM8yOQcHXtsluD7Q?label=%40s4vitar&style=social)](https://www.youtube.com/@s4vitar?sub_confirmation=1)
 
 **Canal**: https://www.youtube.com/@s4vitar
 **LinkedIn**: [Marcelo Vázquez](https://www.linkedin.com/in/s4vitar/)
@@ -60,7 +60,7 @@ This category includes channels focused on security, DevSecOps, and cybersecurit
 ---
 
 ### HackWise
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCWzkTHxkjJtxhRBvbKXRLmg?style=social)
+[![@HackWise](https://img.shields.io/youtube/channel/subscribers/UCWzkTHxkjJtxhRBvbKXRLmg?label=%40HackWise&style=social)](https://www.youtube.com/@HackWise?sub_confirmation=1)
 
 **Canal**: https://www.youtube.com/@HackWise
 **LinkedIn**: [Julio Ureña](https://www.linkedin.com/in/juliourena/)
@@ -76,7 +76,7 @@ This category includes channels focused on security, DevSecOps, and cybersecurit
 ---
 
 ### Hack4u
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC4QlMuZQnE4yVWt9QPKWC1A?style=social)
+[![@hack4u](https://img.shields.io/youtube/channel/subscribers/UC4QlMuZQnE4yVWt9QPKWC1A?label=%40hack4u&style=social)](https://www.youtube.com/@hack4u?sub_confirmation=1)
 
 **Canal**: https://www.youtube.com/@hack4u
 **LinkedIn**: [Alfonso Gómez](https://www.linkedin.com/in/alfonso-gmez/)
@@ -92,7 +92,7 @@ This category includes channels focused on security, DevSecOps, and cybersecurit
 ## 📺 English Channels
 
 ### NetworkChuck
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC9x0AN7BWHpCDHSm9NiJFJQ?style=social)
+[![@NetworkChuck](https://img.shields.io/youtube/channel/subscribers/UC9x0AN7BWHpCDHSm9NiJFJQ?label=%40NetworkChuck&style=social)](https://www.youtube.com/@NetworkChuck?sub_confirmation=1)
 
 **Channel**: https://www.youtube.com/@NetworkChuck
 **LinkedIn**: [Chuck Keith](https://www.linkedin.com/in/chuckkeith/)

@@ -12,7 +12,7 @@ This category includes channels specialized in containers, orchestration, and cl
 ## 📺 Spanish Channels | Canales en Español
 
 ### José Maria Labarta
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC0ZK3JyPYV6ZoAz9Tu7VFfA?style=social)
+[![@josemarialabarta](https://img.shields.io/youtube/channel/subscribers/UC0ZK3JyPYV6ZoAz9Tu7VFfA?label=%40josemarialabarta&style=social)](https://www.youtube.com/@josemarialabarta?sub_confirmation=1)
 
 **Canal**: https://www.youtube.com/@josemarialabarta
 **LinkedIn**: [José Maria Labarta](https://www.linkedin.com/in/labartac/)
@@ -28,7 +28,7 @@ This category includes channels specialized in containers, orchestration, and cl
 ---
 
 ### Cultura DevOps
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCIjQIj4EZhUQGe3KH_55qdg?style=social)
+[![@CulturaDevOps](https://img.shields.io/youtube/channel/subscribers/UCIjQIj4EZhUQGe3KH_55qdg?label=%40CulturaDevOps&style=social)](https://www.youtube.com/@CulturaDevOps?sub_confirmation=1)
 
 **Canal**: https://www.youtube.com/@CulturaDevOps
 **LinkedIn**: [Jaivic Villegas](https://www.linkedin.com/in/jaivic-villegas/)
@@ -44,7 +44,7 @@ This category includes channels specialized in containers, orchestration, and cl
 ## 📺 English Channels
 
 ### TechWorld with Nana
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCdngmbVKX1Tgre699-XLlUA?style=social)
+[![@TechWorldwithNana](https://img.shields.io/youtube/channel/subscribers/UCdngmbVKX1Tgre699-XLlUA?label=%40TechWorldwithNana&style=social)](https://www.youtube.com/@TechWorldwithNana?sub_confirmation=1)
 
 **Channel**: https://www.youtube.com/@TechWorldwithNana
 **LinkedIn**: [Nana Janashia](https://www.linkedin.com/in/nana-janashia/)
@@ -60,7 +60,7 @@ This category includes channels specialized in containers, orchestration, and cl
 ---
 
 ### That DevOps Guy
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCFe9-V_rN9nLqVNiI8Yof3w?style=social)
+[![@MarcelDempers](https://img.shields.io/youtube/channel/subscribers/UCFe9-V_rN9nLqVNiI8Yof3w?label=%40MarcelDempers&style=social)](https://www.youtube.com/@MarcelDempers?sub_confirmation=1)
 
 **Channel**: https://www.youtube.com/@MarcelDempers
 **LinkedIn**: [Marcel Dempers](https://www.linkedin.com/in/marceldempers/)
@@ -76,7 +76,7 @@ This category includes channels specialized in containers, orchestration, and cl
 ---
 
 ### Bret Fisher Docker and DevOps
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCxC8DnL8R_PZQz0HJFrHf5w?style=social)
+[![@BretFisher](https://img.shields.io/youtube/channel/subscribers/UCxC8DnL8R_PZQz0HJFrHf5w?label=%40BretFisher&style=social)](https://www.youtube.com/@BretFisher?sub_confirmation=1)
 
 **Channel**: https://www.youtube.com/@BretFisher
 **LinkedIn**: [Bret Fisher](https://www.linkedin.com/in/bretfisher/)
