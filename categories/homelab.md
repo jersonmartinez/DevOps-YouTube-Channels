@@ -28,7 +28,7 @@ This category includes channels focused on building and maintaining home labs an
 ---
 
 ### Jorge de la Cruz
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCKWaEZ-_VweaEx1j62do_vQ?style=social)
+![YouTube Channel Subscribers](https://img.shields.io/badge/subscribers-0-red)
 
 **Canal**: https://www.youtube.com/@JorgedelaCruz
 **LinkedIn**: [Jorge de la Cruz](https://www.linkedin.com/in/jorgedelacruzmingo/)
@@ -44,7 +44,7 @@ This category includes channels focused on building and maintaining home labs an
 ## 📺 English Channels
 
 ### Techno Tim
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCOk-gHyjcWZNj3Br4oxwh0A?style=social)
+![YouTube Channel Subscribers](https://img.shields.io/badge/subscribers-0-red)
 
 **Channel**: https://www.youtube.com/@TechnoTim
 **LinkedIn**: [Timothy Stewart](https://www.linkedin.com/in/timothystewart6/)
@@ -60,7 +60,7 @@ This category includes channels focused on building and maintaining home labs an
 ---
 
 ### Lawrence Systems
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCHkYOD-3fZbuGhwsADBd9ZQ?style=social)
+![YouTube Channel Subscribers](https://img.shields.io/badge/subscribers-0-red)
 
 **Channel**: https://www.youtube.com/@LAWRENCESYSTEMS
 **LinkedIn**: [Tom Lawrence](https://www.linkedin.com/in/tom-lawrence-57a31913/)
