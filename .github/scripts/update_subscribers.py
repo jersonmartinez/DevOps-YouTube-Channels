@@ -20,22 +20,8 @@ CHANNELS = {
     # Add more channels here
 }
 
-def get_youtube_client() -> Optional[build]:
-    """Create a YouTube API client."""
-    api_key = os.getenv('YOUTUBE_API_KEY')
-    if not api_key:
-        print("Error: YOUTUBE_API_KEY environment variable not set")
-        return None
-    
-    try:
-        return build('youtube', 'v3', developerKey=api_key)
-    except Exception as e:
-        print(f"Error building YouTube client: {e}")
-        return None
-
 def extract_channel_ids(content: str) -> List[str]:
     """Extract YouTube channel IDs from markdown content."""
-    # Match both @username and channel ID formats
     patterns = [
         r'youtube\.com/@([A-Za-z0-9_-]+)',  # @username format
         r'youtube\.com/channel/([A-Za-z0-9_-]+)',  # channel ID format
@@ -174,7 +160,6 @@ def get_channel_stats(channel_id: str) -> Dict:
     }
     
     try:
-        # First get the channel stats from Social Blade
         url = f'https://socialblade.com/youtube/channel/{channel_id}'
         response = requests.get(url, headers=headers)
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -186,7 +171,6 @@ def get_channel_stats(channel_id: str) -> Dict:
             'handle': channel_id
         }
         
-        # Extract stats (implementation will need to be adjusted based on actual HTML structure)
         stats_elements = soup.find_all('div', {'class': 'stats'})
         for element in stats_elements:
             if 'subscribers' in element.text.lower():
@@ -194,7 +178,6 @@ def get_channel_stats(channel_id: str) -> Dict:
             elif 'views' in element.text.lower():
                 stats['views'] = element.find('span').text.strip()
             
-        # Add random delay to avoid rate limiting
         time.sleep(random.uniform(2, 5))
         return stats
         
@@ -220,7 +203,7 @@ def update_markdown_file(file_path: str, stats: Dict[str, Dict]) -> None:
 ###'''
         content = re.sub(stats_pattern, stats_replacement, content, flags=re.DOTALL)
         
-        # Update badges
+        # Update badges using raw strings for regex patterns
         sub_pattern = r'!\[YouTube Channel Subscribers\].*?\)'
         sub_replacement = f'![YouTube Channel Subscribers](https://img.shields.io/badge/subscribers-{channel_stats["subscribers"]}-red)'
         content = re.sub(sub_pattern, sub_replacement, content)
@@ -239,12 +222,11 @@ def update_markdown_file(file_path: str, stats: Dict[str, Dict]) -> None:
 
 def main():
     """Main function to update channel statistics."""
-    # Process all markdown files in categories directory
     categories_dir = Path(__file__).parent.parent.parent / 'categories'
     
     for md_file in categories_dir.glob('*.md'):
         if md_file.name == 'template.md':
-            continue  # Skip template file
+            continue
             
         print(f"Processing {md_file}")
         
