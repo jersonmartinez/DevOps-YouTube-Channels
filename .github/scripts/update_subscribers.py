@@ -67,31 +67,38 @@ def get_channel_stats(channel_id: str) -> Dict:
 
 def update_markdown_file(file_path: str, stats: Dict[str, Dict]) -> None:
     """Update channel statistics in markdown files."""
+    print(f"Updating file: {file_path}")
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read()
     
+    updated = False
     for channel_id, channel_stats in stats.items():
-        # Update subscriber badge only
-        patterns = [
-            fr'youtube\.com/@{channel_id}.*?\n.*?!\[YouTube Channel Subscribers\].*?\)',
-            fr'youtube\.com/channel/{channel_id}.*?\n.*?!\[YouTube Channel Subscribers\].*?\)',
-            fr'youtube\.com/c/{channel_id}.*?\n.*?!\[YouTube Channel Subscribers\].*?\)'
+        print(f"Processing channel: {channel_id}")
+        
+        # Try to find the channel section
+        channel_patterns = [
+            fr'(?s)youtube\.com/@{channel_id}.*?(!?\[YouTube Channel Subscribers\].*?\))',
+            fr'(?s)youtube\.com/channel/{channel_id}.*?(!?\[YouTube Channel Subscribers\].*?\))',
+            fr'(?s)youtube\.com/c/{channel_id}.*?(!?\[YouTube Channel Subscribers\].*?\))'
         ]
         
-        for pattern in patterns:
-            match = re.search(pattern, content, re.MULTILINE | re.DOTALL)
-            if match:
-                old_badge = match.group(0)
-                new_badge = re.sub(
-                    r'!\[YouTube Channel Subscribers\].*?\)',
-                    f'![YouTube Channel Subscribers](https://img.shields.io/badge/subscribers-{channel_stats["subscribers"]}-red)',
-                    old_badge
-                )
-                content = content.replace(old_badge, new_badge)
-                print(f"Updated subscribers for {channel_id}: {channel_stats['subscribers']}")
+        for pattern in channel_patterns:
+            matches = list(re.finditer(pattern, content, re.MULTILINE))
+            if matches:
+                for match in matches:
+                    old_badge = match.group(1)
+                    new_badge = f'![YouTube Channel Subscribers](https://img.shields.io/badge/subscribers-{channel_stats["subscribers"]}-red)'
+                    if old_badge != new_badge:
+                        content = content.replace(old_badge, new_badge)
+                        print(f"Updated badge for {channel_id}: {channel_stats['subscribers']} subscribers")
+                        updated = True
     
-    with open(file_path, 'w', encoding='utf-8') as f:
-        f.write(content)
+    if updated:
+        print(f"Writing updates to {file_path}")
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(content)
+    else:
+        print(f"No updates needed for {file_path}")
 
 def extract_channel_ids(content: str) -> List[str]:
     """Extract YouTube channel IDs and handles from markdown content."""
@@ -112,55 +119,6 @@ def extract_channel_ids(content: str) -> List[str]:
     
     return channel_ids
 
-def update_markdown_file(file_path: str, stats: Dict[str, Dict]) -> None:
-    """Update channel statistics in markdown files."""
-    with open(file_path, 'r', encoding='utf-8') as f:
-        content = f.read()
-    
-    for channel_id, channel_stats in stats.items():
-        # Update statistics section using raw strings for patterns
-        stats_pattern = r'### 📊 Channel Statistics\n(.*?)###'
-        stats_replacement = f'''### 📊 Channel Statistics
-- **Subscribers:** {channel_stats["subscribers"]}
-- **Total Views:** {channel_stats["views"]}
-- **Videos:** {channel_stats["videos"]}
-- **Started:** {channel_stats.get("started", "N/A")}
-- **Last Video:** {channel_stats.get("last_video", "N/A")}
-
-###'''
-        content = re.sub(stats_pattern, stats_replacement, content, flags=re.DOTALL)
-        
-        # Update badges using raw strings for patterns
-        patterns = [
-            fr'youtube\.com/@{channel_id}.*?\n.*?!\[YouTube Channel Subscribers\].*?\)',
-            fr'youtube\.com/channel/{channel_id}.*?\n.*?!\[YouTube Channel Subscribers\].*?\)',
-            fr'youtube\.com/c/{channel_id}.*?\n.*?!\[YouTube Channel Subscribers\].*?\)'
-        ]
-        
-        for pattern in patterns:
-            match = re.search(pattern, content, re.MULTILINE | re.DOTALL)
-            if match:
-                old_badge = match.group(0)
-                new_badge = re.sub(
-                    r'!\[YouTube Channel Subscribers\].*?\)',
-                    f'![YouTube Channel Subscribers](https://img.shields.io/badge/subscribers-{channel_stats["subscribers"]}-red)',
-                    old_badge
-                )
-                content = content.replace(old_badge, new_badge)
-        
-        # Update view count badge
-        view_pattern = r'!\[YouTube Channel Views\].*?\)'
-        view_replacement = f'![YouTube Channel Views](https://img.shields.io/badge/views-{channel_stats["views"]}-blue)'
-        content = re.sub(view_pattern, view_replacement, content)
-        
-        # Update last updated date
-        date_pattern = r'Last updated: .*$'
-        date_replacement = f'Last updated: {time.strftime("%Y-%m-%d")}'
-        content = re.sub(date_pattern, date_replacement, content, flags=re.MULTILINE)
-    
-    with open(file_path, 'w', encoding='utf-8') as f:
-        f.write(content)
-
 def main():
     """Main function to update channel statistics."""
     categories_dir = Path(__file__).parent.parent.parent / 'categories'
@@ -169,18 +127,20 @@ def main():
         if md_file.name == 'template.md':
             continue
             
-        print(f"Processing {md_file}")
+        print(f"\nProcessing {md_file}")
         
         with open(md_file, 'r', encoding='utf-8') as f:
             content = f.read()
         
         channel_ids = extract_channel_ids(content)
         if channel_ids:
+            print(f"Found channels: {', '.join(channel_ids)}")
             stats = {}
             for channel_id in channel_ids:
                 channel_stats = get_channel_stats(channel_id)
                 if channel_stats:
                     stats[channel_id] = channel_stats
+                    print(f"Retrieved stats for {channel_id}: {channel_stats['subscribers']} subscribers")
             
             if stats:
                 update_markdown_file(str(md_file), stats)
