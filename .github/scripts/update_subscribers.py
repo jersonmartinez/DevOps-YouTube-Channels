@@ -7,23 +7,8 @@ from typing import Dict, List
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
-def extract_channel_ids(content: str) -> List[str]:
-    """Extract YouTube channel IDs from markdown content."""
-    patterns = [
-        r'youtube\.com/@([A-Za-z0-9_-]+)',  # @username format
-        r'youtube\.com/channel/([A-Za-z0-9_-]+)',  # channel ID format
-        r'youtube\.com/c/([A-Za-z0-9_-]+)'  # custom URL format
-    ]
-    
-    channel_ids = []
-    for pattern in patterns:
-        matches = re.finditer(pattern, content)
-        channel_ids.extend(match.group(1) for match in matches)
-    
-    return channel_ids
-
 def get_channel_stats(channel_id: str) -> Dict:
-    """Get channel statistics from Social Blade."""
+    """Get channel statistics from YouTube page directly."""
     ua = UserAgent()
     headers = {
         'User-Agent': ua.random,
@@ -32,30 +17,60 @@ def get_channel_stats(channel_id: str) -> Dict:
     }
     
     try:
-        url = f'https://socialblade.com/youtube/channel/{channel_id}'
+        # First try with @handle
+        url = f'https://www.youtube.com/@{channel_id}'
         response = requests.get(url, headers=headers)
+        
+        if response.status_code != 200:
+            # Try with channel ID
+            url = f'https://www.youtube.com/channel/{channel_id}'
+            response = requests.get(url, headers=headers)
+        
         soup = BeautifulSoup(response.text, 'html.parser')
         
+        # Extract subscriber count from meta tags
+        meta_tags = soup.find_all('meta')
+        subscriber_count = '0'
+        view_count = '0'
+        
+        for tag in meta_tags:
+            if tag.get('itemprop') == 'subscriberCount':
+                subscriber_count = tag.get('content', '0')
+            elif tag.get('itemprop') == 'interactionCount':
+                view_count = tag.get('content', '0')
+        
         stats = {
-            'subscribers': '0',
-            'views': '0',
-            'videos': '0',
+            'subscribers': subscriber_count,
+            'views': view_count,
+            'videos': '0',  # This would need a different approach to get
             'handle': channel_id
         }
         
-        stats_elements = soup.find_all('div', {'class': 'stats'})
-        for element in stats_elements:
-            if 'subscribers' in element.text.lower():
-                stats['subscribers'] = element.find('span').text.strip()
-            elif 'views' in element.text.lower():
-                stats['views'] = element.find('span').text.strip()
-            
         time.sleep(random.uniform(2, 5))
         return stats
         
     except Exception as e:
         print(f"Error getting stats for {channel_id}: {e}")
         return None
+
+def extract_channel_ids(content: str) -> List[str]:
+    """Extract YouTube channel IDs and handles from markdown content."""
+    patterns = [
+        r'youtube\.com/@([A-Za-z0-9_-]+)',  # @username format
+        r'youtube\.com/channel/([A-Za-z0-9_-]+)',  # channel ID format
+        r'youtube\.com/c/([A-Za-z0-9_-]+)',  # custom URL format
+        r'\[@([A-Za-z0-9_-]+)\]\(https://youtube\.com'  # markdown link format
+    ]
+    
+    channel_ids = []
+    for pattern in patterns:
+        matches = re.finditer(pattern, content)
+        for match in matches:
+            channel_id = match.group(1)
+            if channel_id not in channel_ids:
+                channel_ids.append(channel_id)
+    
+    return channel_ids
 
 def update_markdown_file(file_path: str, stats: Dict[str, Dict]) -> None:
     """Update channel statistics in markdown files."""
