@@ -1,10 +1,15 @@
 import os
 import re
+import time
+import random
+import requests
 from pathlib import Path
 from typing import Dict, List, Optional
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from dotenv import load_dotenv
+from bs4 import BeautifulSoup
+from fake_useragent import UserAgent
 
 load_dotenv()
 
@@ -44,8 +49,8 @@ def extract_channel_ids(content: str) -> List[str]:
     
     return channel_ids
 
-def get_channel_stats(youtube: build, channel_ids: List[str]) -> Dict[str, int]:
-    """Get subscriber counts for a list of channel IDs."""
+def get_channel_stats(youtube: build, channel_ids: List[str]) -> Dict[str, Dict]:
+    """Get channel statistics including subscribers, views, and video count."""
     stats = {}
     
     for channel_id in channel_ids:
@@ -76,7 +81,12 @@ def get_channel_stats(youtube: build, channel_ids: List[str]) -> Dict[str, int]:
                     response = request.execute()
             
             if response.get('items'):
-                stats[channel_id] = int(response['items'][0]['statistics']['subscriberCount'])
+                stats[channel_id] = {
+                    'subscribers': int(response['items'][0]['statistics']['subscriberCount']),
+                    'views': int(response['items'][0]['statistics']['viewCount']),
+                    'videos': int(response['items'][0]['statistics']['videoCount']),
+                    'handle': channel_id
+                }
             else:
                 print(f"Could not find stats for channel: {channel_id}")
                 
@@ -153,6 +163,68 @@ def main():
             stats = get_channel_stats(youtube, channel_ids)
             update_markdown_file(str(md_file), stats)
             print(f"Updated {len(stats)} channels in {md_file}")
+
+def get_channel_stats(channel_id: str) -> Dict:
+    """Get channel statistics from Social Blade."""
+    ua = UserAgent()
+    headers = {
+        'User-Agent': ua.random,
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+    }
+    
+    try:
+        # First get the channel stats from Social Blade
+        url = f'https://socialblade.com/youtube/channel/{channel_id}'
+        response = requests.get(url, headers=headers)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        stats = {
+            'subscribers': '0',
+            'views': '0',
+            'videos': '0',
+            'handle': channel_id
+        }
+        
+        # Extract stats (implementation will need to be adjusted based on actual HTML structure)
+        stats_elements = soup.find_all('div', {'class': 'stats'})
+        for element in stats_elements:
+            if 'subscribers' in element.text.lower():
+                stats['subscribers'] = element.find('span').text.strip()
+            elif 'views' in element.text.lower():
+                stats['views'] = element.find('span').text.strip()
+            
+        # Add random delay to avoid rate limiting
+        time.sleep(random.uniform(2, 5))
+        return stats
+        
+    except Exception as e:
+        print(f"Error getting stats for {channel_id}: {e}")
+        return None
+
+def update_markdown_file(file_path: str, stats: Dict[str, Dict]) -> None:
+    """Update channel statistics in markdown files."""
+    with open(file_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    for channel_id, channel_stats in stats.items():
+        # Update subscriber count
+        sub_pattern = r'!\[YouTube Channel Subscribers\].*?\)'
+        sub_replacement = f'![YouTube Channel Subscribers](https://img.shields.io/badge/subscribers-{channel_stats["subscribers"]}-red)'
+        content = re.sub(sub_pattern, sub_replacement, content)
+        
+        # Update view count
+        view_pattern = r'!\[YouTube Channel Views\].*?\)'
+        view_replacement = f'![YouTube Channel Views](https://img.shields.io/badge/views-{channel_stats["views"]}-blue)'
+        content = re.sub(view_pattern, view_replacement, content)
+        
+        # Update last updated date
+        date_pattern = r'Last updated: .*?\n'
+        date_replacement = f'Last updated: {time.strftime("%Y-%m-%d")}\n'
+        content = re.sub(date_pattern, date_replacement, content)
+    
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.write(content)
 
 if __name__ == '__main__':
     main()
