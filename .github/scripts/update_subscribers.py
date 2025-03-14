@@ -208,23 +208,60 @@ def update_markdown_file(file_path: str, stats: Dict[str, Dict]) -> None:
         content = f.read()
     
     for channel_id, channel_stats in stats.items():
-        # Update subscriber count
+        # Update statistics section
+        stats_pattern = r'### 📊 Channel Statistics\n(.*?)###'
+        stats_replacement = f'''### 📊 Channel Statistics
+- **Subscribers:** {channel_stats["subscribers"]}
+- **Total Views:** {channel_stats["views"]}
+- **Videos:** {channel_stats["videos"]}
+- **Started:** {channel_stats.get("started", "N/A")}
+- **Last Video:** {channel_stats.get("last_video", "N/A")}
+
+###'''
+        content = re.sub(stats_pattern, stats_replacement, content, flags=re.DOTALL)
+        
+        # Update badges
         sub_pattern = r'!\[YouTube Channel Subscribers\].*?\)'
         sub_replacement = f'![YouTube Channel Subscribers](https://img.shields.io/badge/subscribers-{channel_stats["subscribers"]}-red)'
         content = re.sub(sub_pattern, sub_replacement, content)
         
-        # Update view count
         view_pattern = r'!\[YouTube Channel Views\].*?\)'
         view_replacement = f'![YouTube Channel Views](https://img.shields.io/badge/views-{channel_stats["views"]}-blue)'
         content = re.sub(view_pattern, view_replacement, content)
         
         # Update last updated date
-        date_pattern = r'Last updated: .*?\n'
-        date_replacement = f'Last updated: {time.strftime("%Y-%m-%d")}\n'
-        content = re.sub(date_pattern, date_replacement, content)
+        date_pattern = r'Last updated: .*$'
+        date_replacement = f'Last updated: {time.strftime("%Y-%m-%d")}'
+        content = re.sub(date_pattern, date_replacement, content, flags=re.MULTILINE)
     
     with open(file_path, 'w', encoding='utf-8') as f:
         f.write(content)
+
+def main():
+    """Main function to update channel statistics."""
+    # Process all markdown files in categories directory
+    categories_dir = Path(__file__).parent.parent.parent / 'categories'
+    
+    for md_file in categories_dir.glob('*.md'):
+        if md_file.name == 'template.md':
+            continue  # Skip template file
+            
+        print(f"Processing {md_file}")
+        
+        with open(md_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        channel_ids = extract_channel_ids(content)
+        if channel_ids:
+            stats = {}
+            for channel_id in channel_ids:
+                channel_stats = get_channel_stats(channel_id)
+                if channel_stats:
+                    stats[channel_id] = channel_stats
+            
+            if stats:
+                update_markdown_file(str(md_file), stats)
+                print(f"Updated {len(stats)} channels in {md_file}")
 
 if __name__ == '__main__':
     main()
