@@ -1,20 +1,24 @@
 # 🚀 DevOps YouTube Channels
 
-A curated collection of YouTube channels focused on DevOps, Platform Engineering, Cloud Computing, and related technologies. This repository organizes channels by category and language, making it easy to find the content you're looking for.
+A curated collection of YouTube channels focused on DevOps, Platform Engineering, Cloud Computing, and related technologies. This repository organizes channels by category and language.
 
 ## 📋 Categories
 
-- [Platform Engineering](categories/platform-engineering.md) - Platform architecture and best practices
-- [DevSecOps & Security](categories/devsecops.md) - Security practices and vulnerability analysis
-- [Containers & Orchestration](categories/containers.md) - Docker, Kubernetes, and container technologies
-- [Cloud Infrastructure](categories/cloud.md) - AWS, Azure, GCP, and cloud services
-- [HomeLab & Self-Hosting](categories/homelab.md) - Home servers, virtualization, and self-hosted solutions
-- [Automation & IaC](categories/automation.md) - Infrastructure as Code and process automation
+- [Platform Engineering](categories/platform-engineering.md)
+- [DevSecOps & Security](categories/devsecops.md)
+- [Containers & Orchestration](categories/containers.md)
+- [Cloud Infrastructure](categories/cloud.md)
+- [HomeLab & Self-Hosting](categories/homelab.md)
+- [Automation & IaC](categories/automation.md)
 
 ## 🌐 Language Collections
 
-- [Spanish Channels](Spanish-Channels.md) - Canales en Español
-- [English Channels](English-Channels.md) - English-speaking channels
+- [Spanish Channels](Spanish-Channels.md)
+- [English Channels](English-Channels.md)
+
+## 📊 YouTube Metrics Update Workflow
+
+This repository includes a GitHub Actions workflow that automatically updates the metrics of the YouTube channels listed.
 
 ## 🤝 Contributing
 
@@ -27,25 +31,6 @@ We welcome contributions! Here's how you can help:
 5. Push to the branch (`git push origin feature/new-channel`)
 6. Open a Pull Request
 
-### 📝 Channel Format
-
-```markdown
-### Channel Name
-![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/CHANNEL_ID?style=social)
-
-**Channel**: https://www.youtube.com/@ChannelName
-
-**LinkedIn**: [Author Name](https://www.linkedin.com/in/author-profile/)
-**Role**: Professional Role
-**Tags**: `#tag1` `#tag2` `#tag3` `#tag4`
-
-#### 🎯 Featured Content
-- Topic 1
-- Topic 2
-- Topic 3
-- Topic 4
-```
-
 ## 🎯 Future Improvements
 
 - [ ] Add channel thumbnails and featured video recommendations
@@ -53,6 +38,8 @@ We welcome contributions! Here's how you can help:
 - [ ] Create a tag-based navigation page
 - [ ] Add more international channels
 - [ ] Include playlists and course recommendations
+- [ ] Improve the contribution guidelines for clarity
+- [ ] Set up a GitHub Actions workflow to update YouTube metrics
 
 ## 📜 License
 
