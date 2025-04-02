@@ -18,7 +18,20 @@ A curated collection of YouTube channels focused on DevOps, Platform Engineering
 
 ## 📊 YouTube Metrics Update Workflow
 
-This repository includes a GitHub Actions workflow that automatically updates the metrics of the YouTube channels listed.
+This repository includes a GitHub Actions workflow that automatically updates the metrics of the YouTube channels listed. Instead of using the YouTube API, the workflow scrapes data from [Social Blade](https://socialblade.com) to gather metrics such as subscriber count, total views, and channel growth. This approach ensures that we can retrieve data without relying on API quotas or keys.
+
+### How It Works
+
+1. **Scraping Script**: A custom script scrapes channel metrics from Social Blade.
+2. **GitHub Actions**: The script is executed periodically via a scheduled GitHub Actions workflow.
+3. **Data Integration**: The scraped data is formatted and updated in the repository files (e.g., JSON or Markdown).
+
+### Future Enhancements for Scraping
+
+- [ ] Improve the scraping script to handle changes in Social Blade's HTML structure.
+- [ ] Add error handling for unavailable or blocked pages.
+- [ ] Cache results to minimize repeated requests to Social Blade.
+- [ ] Include additional metrics like estimated earnings or video counts.
 
 ## 🤝 Contributing
 

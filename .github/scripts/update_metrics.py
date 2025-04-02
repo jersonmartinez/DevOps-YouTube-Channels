@@ -1,30 +1,51 @@
 # scripts/update_metrics.py
 
+import logging
+import time
+import random
 import requests
 from bs4 import BeautifulSoup
 import os
 import re
 
+# Configurar el registro para depuración
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
 def get_youtube_metrics(channel_url):
-    # Realiza una solicitud a la página de Social Blade
-    response = requests.get(channel_url)
-    if response.status_code != 200:
-        print(f"Error al acceder a {channel_url}")
-        return None
+    """Obtiene las métricas de un canal de YouTube desde Social Blade."""
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    }
 
-    # Analiza el contenido HTML
-    soup = BeautifulSoup(response.text, 'html.parser')
-
-    # Extrae las métricas deseadas (ejemplo: suscriptores)
     try:
-        subscribers = soup.find('span', class_='number').text.strip()
-        print(f"Retrieved {subscribers} for {channel_url}")  # Salida de depuración
-        return {
-            'subscribers': subscribers,
-        }
-    except AttributeError:
-        print(f"No se pudieron encontrar las métricas para {channel_url}.")
+        logger.info(f"Accediendo a {channel_url}")
+        response = requests.get(channel_url, headers=headers)
+        if response.status_code != 200:
+            logger.error(f"Error al acceder a {channel_url}: Código de estado {response.status_code}")
+            return None
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        # Intentar encontrar el número de suscriptores con selectores más robustos
+        sub_elements = soup.select('div[style*="font-weight: bold"]')
+        for element in sub_elements:
+            text = element.get_text(strip=True)
+            if 'subscribers' in text.lower():
+                logger.info(f"Métricas encontradas para {channel_url}: {text}")
+                return {
+                    'subscribers': text.split()[0],
+                }
+
+        logger.warning(f"No se encontraron métricas para {channel_url}.")
         return None
+
+    except Exception as e:
+        logger.error(f"Error al procesar {channel_url}: {e}")
+        return None
+
+    finally:
+        time.sleep(random.uniform(2, 5))  # Retraso entre solicitudes para evitar bloqueos
 
 def extract_channels_from_md(file_path):
     channels = {}
