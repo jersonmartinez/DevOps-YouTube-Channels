@@ -98,3 +98,16 @@ This category includes channels specialized in containers, orchestration, and cl
 - [Docker Deep Dive](https://www.amazon.com/Docker-Deep-Dive-Nigel-Poulton/dp/1521822808)
 - [Kubernetes: Up and Running](https://www.oreilly.com/library/view/kubernetes-up-and/9781492046523/)
 - [Container Security](https://www.oreilly.com/library/view/container-security/9781492056690/)
+
+### New Container Channel
+[![@NewContainerChannel](https://img.shields.io/youtube/channel/subscribers/CHANNEL_ID?label=%40NewContainerChannel&style=social)](https://www.youtube.com/@NewContainerChannel?sub_confirmation=1)
+
+**Canal**: https://www.youtube.com/@NewContainerChannel
+**LinkedIn**: [Author Name](https://www.linkedin.com/in/author-profile/)
+**Rol**: Container Specialist
+**Etiquetas**: `#docker` `#kubernetes` `#containers`
+
+#### 🎯 Contenido Destacado
+- Docker Tutorials
+- Kubernetes Best Practices
+- Container Security

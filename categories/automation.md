@@ -108,3 +108,16 @@ This category focuses on infrastructure automation, CI/CD, and Infrastructure as
 - [Terraform: Up & Running](https://www.oreilly.com/library/view/terraform-up-and/9781492046899/)
 - [Ansible for DevOps](https://www.ansiblefordevops.com/)
 - [Infrastructure as Code](https://www.manning.com/books/infrastructure-as-code)
+
+### New Automation Channel
+[![@NewAutomationChannel](https://img.shields.io/youtube/channel/subscribers/CHANNEL_ID?label=%40NewAutomationChannel&style=social)](https://www.youtube.com/@NewAutomationChannel?sub_confirmation=1)
+
+**Canal**: https://www.youtube.com/@NewAutomationChannel
+**LinkedIn**: [Author Name](https://www.linkedin.com/in/author-profile/)
+**Rol**: Automation Engineer
+**Etiquetas**: `#automation` `#iac` `#devops`
+
+#### 🎯 Contenido Destacado
+- Infrastructure as Code
+- Automation Tools and Techniques
+- CI/CD Automation

@@ -114,3 +114,16 @@ This category includes channels focused on security, DevSecOps, and cybersecurit
 - [DevSecOps Engineering](https://www.manning.com/books/devsecops-engineering)
 - [Security as Code](https://www.manning.com/books/security-as-code)
 - [The Art of Software Security Assessment](https://www.pearson.com/en-us/subject-catalog/p/art-of-software-security-assessment-the-identifying-and-preventing-software-vulnerabilities/P200000009139)
+
+### New Security Channel
+[![@NewChannel](https://img.shields.io/youtube/channel/subscribers/CHANNEL_ID?label=%40NewChannel&style=social)](https://www.youtube.com/@NewChannel?sub_confirmation=1)
+
+**Canal**: https://www.youtube.com/@NewChannel
+**LinkedIn**: [Author Name](https://www.linkedin.com/in/author-profile/)
+**Rol**: Security Expert
+**Etiquetas**: `#devsecops` `#security`
+
+#### 🎯 Contenido Destacado
+- Security Best Practices
+- Vulnerability Management
+- Compliance

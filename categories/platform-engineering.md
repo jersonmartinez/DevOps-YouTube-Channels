@@ -114,3 +114,16 @@ This category includes channels focused on Platform Engineering, DevOps practice
 - [The DevOps Handbook](https://www.amazon.com/DevOps-Handbook-World-Class-Reliability-Organizations/dp/1950508404/)
 - [Team Topologies](https://teamtopologies.com/book)
 - [Platform Engineering on Kubernetes](https://www.manning.com/books/platform-engineering-on-kubernetes)
+
+### New Platform Engineering Channel
+[![@NewPlatformChannel](https://img.shields.io/youtube/channel/subscribers/CHANNEL_ID?label=%40NewPlatformChannel&style=social)](https://www.youtube.com/@NewPlatformChannel?sub_confirmation=1)
+
+**Canal**: https://www.youtube.com/@NewPlatformChannel
+**LinkedIn**: [Author Name](https://www.linkedin.com/in/author-profile/)
+**Rol**: Platform Engineer
+**Etiquetas**: `#platformengineering` `#cloud` `#devops`
+
+#### 🎯 Contenido Destacado
+- Best Practices in Platform Engineering
+- Cloud Architecture
+- CI/CD Pipelines

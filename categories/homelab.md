@@ -92,3 +92,16 @@ This category includes channels focused on building and maintaining home labs an
 - [Building a Homelab VM Server](https://www.dlford.io/building-home-lab-server/)
 - [Self-Hosted: A Practical Guide](https://selfhosted.libhunt.com/)
 - [The Ultimate Homelab Guide](https://www.reddit.com/r/homelab/wiki/introduction/)
+
+### New HomeLab Channel
+[![@NewHomeLabChannel](https://img.shields.io/youtube/channel/subscribers/CHANNEL_ID?label=%40NewHomeLabChannel&style=social)](https://www.youtube.com/@NewHomeLabChannel?sub_confirmation=1)
+
+**Canal**: https://www.youtube.com/@NewHomeLabChannel
+**LinkedIn**: [Author Name](https://www.linkedin.com/in/author-profile/)
+**Rol**: HomeLab Enthusiast
+**Etiquetas**: `#homelab` `#selfhosting` `#virtualization`
+
+#### 🎯 Contenido Destacado
+- Setting Up a HomeLab
+- Virtualization Techniques
+- Self-Hosting Applications

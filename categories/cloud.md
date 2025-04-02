@@ -130,3 +130,16 @@ This category includes channels specialized in cloud computing, infrastructure, 
 - [AWS Certified Solutions Architect Study Guide](https://www.amazon.com/Certified-Solutions-Architect-Study-Guide/dp/1119713080)
 - [Infrastructure as Code](https://www.oreilly.com/library/view/infrastructure-as-code/9781098114664/)
 - [Cloud Native Transformation](https://www.oreilly.com/library/view/cloud-native-transformation/9781492048893/)
+
+### New Cloud Channel
+[![@NewCloudChannel](https://img.shields.io/youtube/channel/subscribers/CHANNEL_ID?label=%40NewCloudChannel&style=social)](https://www.youtube.com/@NewCloudChannel?sub_confirmation=1)
+
+**Canal**: https://www.youtube.com/@NewCloudChannel
+**LinkedIn**: [Author Name](https://www.linkedin.com/in/author-profile/)
+**Rol**: Cloud Architect
+**Etiquetas**: `#cloud` `#aws` `#azure`
+
+#### 🎯 Contenido Destacado
+- Cloud Migration Strategies
+- AWS and Azure Tutorials
+- Cloud Security Best Practices

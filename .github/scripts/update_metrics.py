@@ -17,12 +17,13 @@ def get_youtube_metrics(channel_url):
     # Extrae las métricas deseadas (ejemplo: suscriptores)
     try:
         subscribers = soup.find('span', class_='number').text.strip()
+        print(f"Retrieved {subscribers} for {channel_url}")  # Salida de depuración
         return {
             'subscribers': subscribers,
             # Agrega más métricas según sea necesario
         }
     except AttributeError:
-        print("No se pudieron encontrar las métricas.")
+        print(f"No se pudieron encontrar las métricas para {channel_url}.")
         return None
 
 def update_metrics():
