@@ -3,6 +3,7 @@
 import requests
 from bs4 import BeautifulSoup
 import os
+import re
 
 def get_youtube_metrics(channel_url):
     # Realiza una solicitud a la página de Social Blade
@@ -20,24 +21,52 @@ def get_youtube_metrics(channel_url):
         print(f"Retrieved {subscribers} for {channel_url}")  # Salida de depuración
         return {
             'subscribers': subscribers,
-            # Agrega más métricas según sea necesario
         }
     except AttributeError:
         print(f"No se pudieron encontrar las métricas para {channel_url}.")
         return None
 
-def update_metrics():
-    # Lista de canales de YouTube a actualizar
-    channels = {
-        'Channel Name': 'https://socialblade.com/youtube/channel/CHANNEL_ID',
-        # Agrega más canales según sea necesario
-    }
+def extract_channels_from_md(file_path):
+    channels = {}
+    with open(file_path, 'r') as file:
+        content = file.readlines()
+    
+    for line in content:
+        # Busca líneas que contengan el nombre y la URL del canal
+        if '**Canal**:' in line or '**Channel**:' in line:
+            # Extraer el nombre del canal
+            name_match = re.search(r'\*\*(.*?)\*\*', line)
+            if name_match:
+                name = name_match.group(1).strip()
+            else:
+                continue
+            
+            # Extraer la URL del canal
+            url_match = re.search(r'\((.*?)\)', line)
+            if url_match:
+                url = url_match.group(1).strip()
+                channels[name] = url
+    return channels
 
-    for name, url in channels.items():
+def update_metrics():
+    # Lista de archivos de categorías
+    category_files = [
+        'categories/devsecops.md',
+        'categories/homelab.md',
+        'categories/platform-engineering.md',
+        'categories/cloud.md',
+        'categories/automation.md',
+        'categories/containers.md'
+    ]
+
+    all_channels = {}
+    for category_file in category_files:
+        all_channels.update(extract_channels_from_md(category_file))
+
+    for name, url in all_channels.items():
         metrics = get_youtube_metrics(url)
         if metrics:
             print(f"{name}: {metrics['subscribers']} subscribers")
-            # Aquí puedes agregar lógica para actualizar los archivos markdown correspondientes
             update_markdown_file(name, metrics)
 
 def update_markdown_file(channel_name, metrics):
