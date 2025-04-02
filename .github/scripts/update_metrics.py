@@ -12,15 +12,11 @@ import re
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-def get_youtube_metrics(channel_name):
+def get_youtube_metrics(channel_url):
     """Obtiene las métricas de un canal de YouTube desde Social Blade."""
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     }
-
-    # Construir la URL de Social Blade
-    base_url = "https://socialblade.com/youtube/user/"
-    channel_url = f"{base_url}{channel_name}"
 
     try:
         logger.info(f"Accediendo a {channel_url}")
@@ -31,16 +27,17 @@ def get_youtube_metrics(channel_name):
 
         soup = BeautifulSoup(response.text, 'html.parser')
 
-        # Buscar el número de suscriptores en la página
-        sub_element = soup.find('span', {'id': 'youtube-stats-header-subs'});
-        if sub_element:
-            subscribers = sub_element.get_text(strip=True)
-            logger.info(f"Métricas encontradas para {channel_name}: {subscribers} suscriptores")
-            return {
-                'subscribers': subscribers,
-            }
+        # Intentar encontrar el número de suscriptores con selectores más robustos
+        sub_elements = soup.select('div[style*="font-weight: bold"]')
+        for element in sub_elements:
+            text = element.get_text(strip=True)
+            if 'subscribers' in text.lower():
+                logger.info(f"Métricas encontradas para {channel_url}: {text}")
+                return {
+                    'subscribers': text.split()[0],
+                }
 
-        logger.warning(f"No se encontraron métricas para {channel_name} en Social Blade.")
+        logger.warning(f"No se encontraron métricas para {channel_url}.")
         return None
 
     except Exception as e:
