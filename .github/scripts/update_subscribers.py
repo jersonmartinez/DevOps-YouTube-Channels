@@ -9,61 +9,47 @@ from fake_useragent import UserAgent
 
 def get_channel_stats(channel_id: str) -> Dict:
     """Get channel statistics from Social Blade."""
-    ua = UserAgent()
     headers = {
-        'User-Agent': ua.random,
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     }
-    
-    try:
-        # Try different URL formats for SocialBlade
-        urls = [
-            f'https://socialblade.com/youtube/user/{channel_id}',
-            f'https://socialblade.com/youtube/channel/{channel_id}',
-            f'https://socialblade.com/youtube/c/{channel_id}',
-            f'https://socialblade.com/youtube/user/@{channel_id}'
-        ]
-        
-        stats = None
-        for url in urls:
-            try:
-                response = requests.get(url, headers=headers)
-                if response.status_code == 200:
-                    soup = BeautifulSoup(response.text, 'html.parser')
-                    
-                    # Look for subscriber count in different formats
-                    sub_elements = soup.select('div[style*="font-weight: bold"]')
-                    for element in sub_elements:
-                        text = element.get_text(strip=True)
-                        if 'subscribers' in text.lower():
-                            stats = {
-                                'subscribers': text.split()[0],
-                                'views': '0',
-                                'videos': '0',
-                                'handle': channel_id
-                            }
-                            break
-                    
-                    if stats:
-                        break
-                        
-            except Exception as e:
-                print(f"Error trying URL {url}: {e}")
-                continue
-                
-            time.sleep(random.uniform(2, 5))  # Delay between attempts
-        
-        return stats or {
-            'subscribers': '0',
-            'views': '0',
-            'videos': '0',
-            'handle': channel_id
-        }
-        
-    except Exception as e:
-        print(f"Error getting stats for {channel_id}: {e}")
-        return None
+
+    urls = [
+        f'https://socialblade.com/youtube/user/{channel_id}',
+        f'https://socialblade.com/youtube/channel/{channel_id}',
+        f'https://socialblade.com/youtube/c/{channel_id}',
+        f'https://socialblade.com/youtube/user/@{channel_id}'
+    ]
+
+    for url in urls:
+        try:
+            logger.info(f"Trying URL: {url}")
+            response = requests.get(url, headers=headers)
+            if response.status_code == 200:
+                soup = BeautifulSoup(response.text, 'html.parser')
+                sub_element = soup.find('span', {'id': 'youtube-stats-header-subs'})
+                if sub_element:
+                    subscribers = sub_element.get_text(strip=True)
+                    logger.info(f"Found stats for {channel_id} on {url}: {subscribers} subscribers")
+                    return {
+                        'subscribers': subscribers,
+                        'views': '0',
+                        'videos': '0',
+                        'handle': channel_id
+                    }
+            else:
+                logger.warning(f"Failed to fetch {url}, status code: {response.status_code}")
+        except Exception as e:
+            logger.error(f"Error trying URL {url}: {e}")
+
+        time.sleep(random.uniform(2, 5))  # Delay between attempts
+
+    logger.warning(f"No stats found for {channel_id} after trying all URLs.")
+    return {
+        'subscribers': '0',
+        'views': '0',
+        'videos': '0',
+        'handle': channel_id
+    }
 
 def update_markdown_file(file_path: str, stats: Dict[str, Dict]) -> None:
     """Update channel statistics in markdown files."""

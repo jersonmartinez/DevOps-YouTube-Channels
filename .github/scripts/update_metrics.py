@@ -27,15 +27,14 @@ def get_youtube_metrics(channel_url):
 
         soup = BeautifulSoup(response.text, 'html.parser')
 
-        # Intentar encontrar el número de suscriptores con selectores más robustos
-        sub_elements = soup.select('div[style*="font-weight: bold"]')
-        for element in sub_elements:
-            text = element.get_text(strip=True)
-            if 'subscribers' in text.lower():
-                logger.info(f"Métricas encontradas para {channel_url}: {text}")
-                return {
-                    'subscribers': text.split()[0],
-                }
+        # Buscar el número de suscriptores en la página
+        sub_element = soup.find('span', {'id': 'youtube-stats-header-subs'})
+        if sub_element:
+            subscribers = sub_element.get_text(strip=True)
+            logger.info(f"Métricas encontradas para {channel_url}: {subscribers} suscriptores")
+            return {
+                'subscribers': subscribers,
+            }
 
         logger.warning(f"No se encontraron métricas para {channel_url}.")
         return None

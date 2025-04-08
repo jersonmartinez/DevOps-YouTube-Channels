@@ -26,6 +26,26 @@ This repository includes a GitHub Actions workflow that automatically updates th
 2. **GitHub Actions**: The script is executed periodically via a scheduled GitHub Actions workflow.
 3. **Data Integration**: The scraped data is formatted and updated in the repository files (e.g., JSON or Markdown).
 
+### Setup Instructions
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/DevOps-YouTube-Channels.git
+   cd DevOps-YouTube-Channels
+   ```
+
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Run the scraping script locally:
+   ```bash
+   python .github/scripts/update_subscribers.py
+   ```
+
+4. Verify the updates in the `categories` folder.
+
 ### Future Enhancements for Scraping
 
 - [ ] Improve the scraping script to handle changes in Social Blade's HTML structure.
@@ -60,4 +80,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-*This repository is maintained with ❤️ by the DevOps community. Last updated: March 2025*
+*This repository is maintained with ❤️ by the DevOps community. Last updated: April 2025*
