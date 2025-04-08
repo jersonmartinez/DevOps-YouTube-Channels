@@ -6,6 +6,11 @@ from pathlib import Path
 from typing import Dict, List
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
+import logging
+
+# Configurar el registro para depuración
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 def get_channel_stats(channel_id: str) -> Dict:
     """Get channel statistics from Social Blade."""
