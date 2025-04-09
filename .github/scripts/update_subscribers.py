@@ -9,7 +9,7 @@ from fake_useragent import UserAgent
 import logging
 
 # Configurar el registro para depuración
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(nivelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 def get_channel_stats(channel_id: str) -> Dict:
