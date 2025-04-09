@@ -15,6 +15,10 @@ logger = logging.getLogger(__name__)
 # Crear instancia de UserAgent para rotar User-Agent
 ua = UserAgent()
 
+# Configurar proxy
+proxy = "http://954e1b3b083ab867a1f788cc97b7324f3e69d1f0:premium_proxy=true@api.zenrows.com:8001"
+proxies = {"http": proxy, "https": proxy}
+
 def get_youtube_channel_stats(channel_url: str) -> Dict:
     """Get subscriber count from a YouTube channel page."""
     headers = {
@@ -27,7 +31,7 @@ def get_youtube_channel_stats(channel_url: str) -> Dict:
 
     try:
         logger.info(f"Trying URL: {channel_url}")
-        response = requests.get(channel_url, headers=headers, timeout=10)
+        response = requests.get(channel_url, headers=headers, proxies=proxies, timeout=10)
         response.raise_for_status()  # Lanza una excepción para códigos de error HTTP
         time.sleep(random.uniform(5, 10))  # Retraso aleatorio
 
