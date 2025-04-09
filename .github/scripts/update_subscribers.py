@@ -35,6 +35,7 @@ def get_channel_stats(channel_id: str) -> Dict:
     try:
         logger.info(f"Trying URL: {url}")
         response = requests.get(url, headers=headers, proxies=proxies, timeout=10)
+        time.sleep(random.uniform(3, 6))  # Agregar un retraso aleatorio entre 3 y 6 segundos para evitar bloqueos
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, 'html.parser')
             sub_element = soup.find('span', {'id': 'youtube-stats-header-subs'})
