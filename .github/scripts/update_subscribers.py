@@ -18,37 +18,29 @@ def get_channel_stats(channel_id: str) -> Dict:
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     }
 
-    urls = [
-        f'https://socialblade.com/youtube/user/{channel_id}',
-        f'https://socialblade.com/youtube/channel/{channel_id}',
-        f'https://socialblade.com/youtube/c/{channel_id}',
-        f'https://socialblade.com/youtube/user/@{channel_id}'
-    ]
+    url = f'https://socialblade.com/youtube/handle/{channel_id}'
 
-    for url in urls:
-        try:
-            logger.info(f"Trying URL: {url}")
-            response = requests.get(url, headers=headers)
-            if response.status_code == 200:
-                soup = BeautifulSoup(response.text, 'html.parser')
-                sub_element = soup.find('span', {'id': 'youtube-stats-header-subs'})
-                if sub_element:
-                    subscribers = sub_element.get_text(strip=True)
-                    logger.info(f"Found stats for {channel_id} on {url}: {subscribers} subscribers")
-                    return {
-                        'subscribers': subscribers,
-                        'views': '0',
-                        'videos': '0',
-                        'handle': channel_id
-                    }
-            else:
-                logger.warning(f"Failed to fetch {url}, status code: {response.status_code}")
-        except Exception as e:
-            logger.error(f"Error trying URL {url}: {e}")
+    try:
+        logger.info(f"Trying URL: {url}")
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.text, 'html.parser')
+            sub_element = soup.find('span', {'id': 'youtube-stats-header-subs'})
+            if sub_element:
+                subscribers = sub_element.get_text(strip=True)
+                logger.info(f"Found stats for {channel_id} on {url}: {subscribers} subscribers")
+                return {
+                    'subscribers': subscribers,
+                    'views': '0',
+                    'videos': '0',
+                    'handle': channel_id
+                }
+        else:
+            logger.warning(f"Failed to fetch {url}, status code: {response.status_code}")
+    except Exception as e:
+        logger.error(f"Error trying URL {url}: {e}")
 
-        time.sleep(random.uniform(2, 5))  # Delay between attempts
-
-    logger.warning(f"No stats found for {channel_id} after trying all URLs.")
+    logger.warning(f"No stats found for {channel_id} after trying the URL.")
     return {
         'subscribers': '0',
         'views': '0',
