@@ -9,20 +9,29 @@ from fake_useragent import UserAgent
 import logging
 
 # Configurar el registro para depuración
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(nivelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 def get_channel_stats(channel_id: str) -> Dict:
     """Get channel statistics from Social Blade."""
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1'
+    }
+
+    proxies = {
+        'http': None,
+        'https': None
     }
 
     url = f'https://socialblade.com/youtube/handle/{channel_id}'
 
     try:
         logger.info(f"Trying URL: {url}")
-        response = requests.get(url, headers=headers)
+        response = requests.get(url, headers=headers, proxies=proxies, timeout=10)
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, 'html.parser')
             sub_element = soup.find('span', {'id': 'youtube-stats-header-subs'})
@@ -35,10 +44,12 @@ def get_channel_stats(channel_id: str) -> Dict:
                     'videos': '0',
                     'handle': channel_id
                 }
+        elif response.status_code == 403:
+            logger.warning(f"Access denied for {url}. Consider using a proxy or VPN.")
         else:
             logger.warning(f"Failed to fetch {url}, status code: {response.status_code}")
-    except Exception as e:
-        logger.error(f"Error trying URL {url}: {e}")
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Request error for URL {url}: {e}")
 
     logger.warning(f"No stats found for {channel_id} after trying the URL.")
     return {
