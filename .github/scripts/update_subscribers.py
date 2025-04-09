@@ -30,7 +30,7 @@ def get_channel_stats(channel_id: str) -> Dict:
         'https': None
     }
 
-    url = f'https://socialblade.com/youtube/handle/{channel_id}'
+    url = f'https://socialblade.com/youtube/handle/{channel_id.strip()}'
 
     try:
         logger.info(f"Trying URL: {url}")
