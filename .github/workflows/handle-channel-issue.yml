@@ -1,0 +1,194 @@
+name: Handle Channel Suggestion Issues
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  process-channel-suggestion:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.title, '[CHANNEL') || contains(github.event.issue.body, 'Canal Sugerido')
+    
+    steps:
+      - name: Add labels to channel suggestion
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            
+            // Add appropriate labels
+            const labels = ['channel-suggestion', 'needs-review'];
+            
+            // Check if it's in Spanish or English
+            const body = context.payload.issue.body || '';
+            if (body.includes('Idioma: Español') || body.includes('Idioma: es')) {
+              labels.push('spanish');
+            } else if (body.includes('Idioma: English') || body.includes('Idioma: en')) {
+              labels.push('english');
+            }
+            
+            // Add category label if specified
+            const categories = ['platform-engineering', 'devsecops', 'containers', 'cloud', 'automation', 'homelab'];
+            for (const category of categories) {
+              if (body.toLowerCase().includes(category.toLowerCase())) {
+                labels.push(`category-${category}`);
+                break;
+              }
+            }
+            
+            await github.rest.issues.addLabels({
+              owner,
+              repo,
+              issue_number,
+              labels
+            });
+      
+      - name: Welcome comment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const author = context.payload.issue.user.login;
+            
+            const welcomeMessage = `## 🎉 ¡Gracias por tu sugerencia de canal!
+            
+            Hola @${author}, gracias por contribuir a **DevOps YouTube Channels**.
+            
+            ### 🔄 Próximos pasos:
+            1. ✅ **Recibido**: Tu sugerencia ha sido registrada
+            2. 🔍 **Revisión automática**: Verificando información del canal
+            3. 👥 **Revisión manual**: Nuestro equipo evaluará la calidad
+            4. ⚡ **Aprobación**: Si cumple criterios, será agregado
+            
+            ### ⏱️ Tiempo estimado: 5-7 días hábiles
+            
+            ### 📋 Criterios de evaluación:
+            - Contenido DevOps/Cloud relevante y de calidad
+            - Canal activo con videos recientes
+            - Información técnicamente precisa
+            - Valor educativo para la comunidad
+            
+            ### 🆘 ¿Necesitas ayuda?
+            - Consulta nuestra [Guía de Contribución](https://github.com/${owner}/${repo}/blob/main/CONTRIBUTING.md)
+            - Ve los [criterios detallados](https://github.com/${owner}/${repo}/blob/main/contribute.html)
+            
+            ¡Gracias por ayudar a hacer crecer la comunidad DevOps! 🚀
+            
+            *Este comentario fue generado automáticamente por el sistema de contribución.*`;
+
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number,
+              body: welcomeMessage
+            });
+      
+      - name: Extract channel information
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const body = context.payload.issue.body || '';
+            
+            // Try to extract channel URL for basic validation
+            const urlMatch = body.match(/URL.*?:?\s*(https?:\/\/[^\s\n]+)/i);
+            const channelUrl = urlMatch ? urlMatch[1] : null;
+            
+            if (channelUrl) {
+              console.log(`Found channel URL: ${channelUrl}`);
+              
+              // Basic URL validation
+              if (!channelUrl.includes('youtube.com')) {
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number,
+                  body: `⚠️ **Advertencia**: La URL proporcionada no parece ser de YouTube.\n\nURL detectada: \`${channelUrl}\`\n\nPor favor, verifica que sea una URL válida de canal de YouTube.`
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number,
+                  body: `✅ **URL validada**: Se detectó una URL de YouTube válida.\n\n🔍 **Próximo paso**: Nuestro equipo revisará el contenido y calidad del canal.`
+                });
+              }
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body: `❌ **URL no encontrada**: No se pudo detectar una URL de canal en la descripción.\n\n🔧 **Acción requerida**: Por favor, edita el issue e incluye la URL completa del canal de YouTube.`
+              });
+            }
+      
+      - name: Assign to maintainer
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            
+            // Assign to the repository owner for review
+            await github.rest.issues.addAssignees({
+              owner,
+              repo,
+              issue_number,
+              assignees: [owner]
+            });
+      
+      - name: Update issue title if needed
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const title = context.payload.issue.title;
+            
+            // Ensure title has proper format
+            if (!title.includes('[CHANNEL') && !title.includes('[CANAL')) {
+              const body = context.payload.issue.body || '';
+              const nameMatch = body.match(/Nombre del Canal.*?:?\s*(.+?)(?:\n|$)/i);
+              const channelName = nameMatch ? nameMatch[1].trim() : 'Canal sin nombre';
+              
+              const newTitle = `[CHANNEL SUGGESTION] ${channelName}`;
+              
+              await github.rest.issues.update({
+                owner,
+                repo,
+                issue_number,
+                title: newTitle
+              });
+              
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body: `🔄 **Título actualizado**: Se ha estandarizado el título del issue para mejor organización.\n\n**Nuevo título**: ${newTitle}`
+              });
+            }
+
+  notify-new-suggestion:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.title, '[CHANNEL') || contains(github.event.issue.body, 'Canal Sugerido')
+    
+    steps:
+      - name: Create summary
+        run: |
+          echo "## 📺 Nueva Sugerencia de Canal" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Issue**: #${{ github.event.issue.number }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Título**: ${{ github.event.issue.title }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Autor**: @${{ github.event.issue.user.login }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Fecha**: $(date)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔍 Próximos pasos:" >> $GITHUB_STEP_SUMMARY
+          echo "1. Revisión automática completada" >> $GITHUB_STEP_SUMMARY
+          echo "2. Asignado para revisión manual" >> $GITHUB_STEP_SUMMARY
+          echo "3. Etiquetas aplicadas" >> $GITHUB_STEP_SUMMARY
+          echo "4. Comentarios de bienvenida enviados" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "[Ver issue completo](https://github.com/${{ github.repository }}/issues/${{ github.event.issue.number }})" >> $GITHUB_STEP_SUMMARY 
