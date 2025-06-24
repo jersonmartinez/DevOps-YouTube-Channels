@@ -9,6 +9,11 @@ on:
       - 'English-Channels.md'
       - '**.md'
 
+permissions:
+  issues: write
+  contents: read
+  pull-requests: write
+
 jobs:
   validate-content:
     runs-on: ubuntu-latest
