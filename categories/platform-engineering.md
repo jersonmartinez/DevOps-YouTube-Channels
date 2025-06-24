@@ -11,6 +11,26 @@ This category includes channels focused on Platform Engineering, DevOps practice
 
 ## 📺 Spanish Channels | Canales en Español
 
+### DevOps With Jerson ⭐ DESTACADO
+[![@DevOpsWithJerson](https://img.shields.io/youtube/channel/subscribers/DevOpsWithJerson?label=%40DevOpsWithJerson&style=social)](https://www.youtube.com/@DevOpsWithJerson?sub_confirmation=1)
+
+**Canal**: https://www.youtube.com/@DevOpsWithJerson
+**LinkedIn**: [Jerson](https://www.linkedin.com/in/jerson/)
+**Rol**: DevOps Engineer & Content Creator
+**Etiquetas**: `#devops` `#kubernetes` `#docker` `#cicd` `#cloud` `#terraform` `#gitops` `#aws`
+
+#### 🎯 Contenido Destacado
+- Kubernetes desde cero hasta producción
+- Docker y containerización
+- CI/CD con GitHub Actions y GitLab
+- Infrastructure as Code con Terraform
+- Mejores prácticas de DevOps
+- Cloud Computing (AWS, Azure, GCP)
+- GitOps y ArgoCD
+- Monitoreo y Observabilidad
+
+---
+
 ### return(GiS)
 [![@returngis](https://img.shields.io/youtube/channel/subscribers/UCUDb8G3qTQBqxFzfLB7aKXQ?label=%40returngis&style=social)](https://www.youtube.com/@returngis?sub_confirmation=1)
 

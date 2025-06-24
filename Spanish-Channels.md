@@ -1,3 +1,12 @@
+# DevOps With Jerson ⭐ DESTACADO
+https://www.youtube.com/@DevOpsWithJerson
+Canal especializado en DevOps con contenido desde conceptos básicos hasta implementaciones avanzadas en producción.
+
+**Jerson**
+https://www.linkedin.com/in/jerson/
+DevOps Engineer & Content Creator
+
+---
 # return(GiS);
 https://www.youtube.com/@returngis
 Enseña sobre DevSecOps, Platform Engineering, GitHub Copilot, GitHub Actions, Docker, IA, entre otros.

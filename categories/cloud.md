@@ -11,6 +11,38 @@ This category includes channels specialized in cloud computing, infrastructure, 
 
 ## 📺 Spanish Channels | Canales en Español
 
+### Guillermo Musumeci
+[![@GuillermoMusumeci](https://img.shields.io/youtube/channel/subscribers/GuillermoMusumeci?label=%40GuillermoMusumeci&style=social)](https://www.youtube.com/@GuillermoMusumeci?sub_confirmation=1)
+
+**Canal**: https://www.youtube.com/@GuillermoMusumeci
+**LinkedIn**: [Guillermo Musumeci](https://www.linkedin.com/in/gmusumeci/)
+**Rol**: Cloud Architect & Trainer
+**Etiquetas**: `#azure` `#aws` `#terraform` `#cloud` `#iac`
+
+#### 🎯 Contenido Destacado
+- Azure desde cero
+- Terraform en profundidad
+- AWS y multi-cloud
+- Certificaciones Cloud
+
+---
+
+### Tech con Catalina
+[![@TechconCatalina](https://img.shields.io/youtube/channel/subscribers/TechconCatalina?label=%40TechconCatalina&style=social)](https://www.youtube.com/@TechconCatalina?sub_confirmation=1)
+
+**Canal**: https://www.youtube.com/@TechconCatalina
+**LinkedIn**: [Catalina Rojas](https://www.linkedin.com/in/catalinatech/)
+**Rol**: Cloud Engineer & Content Creator
+**Etiquetas**: `#aws` `#cloud` `#devops` `#python`
+
+#### 🎯 Contenido Destacado
+- AWS Services explicados
+- Python para Cloud
+- Proyectos prácticos
+- Preparación para certificaciones
+
+---
+
 ### DaveOps
 [![@DaveOps](https://img.shields.io/youtube/channel/subscribers/UCxbNYB3B7K8LWsOdar8W_qg?label=%40DaveOps&style=social)](https://www.youtube.com/@DaveOps?sub_confirmation=1)
 

@@ -3,373 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 DevOps YouTube Channels - Recursos de Aprendizaje</title>
+    <title>🚀 DevOps YouTube Channels - Tu Portal de Aprendizaje DevOps</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <style>
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --hover-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #f8f9fa;
-        }
-
-        .hero-section {
-            background: var(--primary-gradient);
-            color: white;
-            padding: 4rem 0;
-            margin-bottom: 3rem;
-        }
-
-        .hero-section h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .search-container {
-            position: relative;
-            max-width: 600px;
-            margin: 2rem auto;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 1rem 3rem 1rem 1.5rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            box-shadow: var(--card-shadow);
-        }
-
-        .search-icon {
-            position: absolute;
-            right: 1.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #6c757d;
-        }
-
-        .filter-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            box-shadow: var(--card-shadow);
-        }
-
-        .filter-btn {
-            margin: 0.25rem;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--hover-shadow);
-        }
-
-        .channel-card {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .channel-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--hover-shadow);
-            border-color: #667eea;
-        }
-
-        .channel-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .channel-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--primary-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-right: 1rem;
-        }
-
-        .channel-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #333;
-            margin: 0;
-        }
-
-        .channel-role {
-            color: #6c757d;
-            font-size: 0.9rem;
-        }
-
-        .channel-stats {
-            display: flex;
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-
-        .stat-badge {
-            background: #f8f9fa;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .tag {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: #e9ecef;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            margin: 0.2rem;
-            color: #495057;
-        }
-
-        .tag-category {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .tag-language {
-            background: #d1ecf1;
-            color: #0c5460;
-        }
-
-        .btn-links {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .btn-channel {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .btn-youtube {
-            background: #ff0000;
-            color: white;
-        }
-
-        .btn-youtube:hover {
-            background: #cc0000;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .btn-linkedin {
-            background: #0077b5;
-            color: white;
-        }
-
-        .btn-linkedin:hover {
-            background: #005885;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .stats-overview {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            box-shadow: var(--card-shadow);
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #667eea;
-        }
-
-        .stat-label {
-            color: #6c757d;
-            font-size: 1rem;
-        }
-
-        .loading-spinner {
-            text-align: center;
-            padding: 3rem;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 3rem;
-            color: #6c757d;
-        }
-
-        @media (max-width: 768px) {
-            .hero-section h1 {
-                font-size: 2rem;
-            }
-            
-            .channel-header {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .channel-avatar {
-                margin-bottom: 1rem;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/modern-styles.css">
 </head>
 <body>
-    <!-- Hero Section -->
-    <div class="hero-section">
-        <div class="container">
-            <h1 class="text-center mb-3">
-                <i class="bi bi-youtube me-3"></i>DevOps YouTube Channels
-            </h1>
-            <p class="text-center lead">
-                Descubre los mejores canales de YouTube para aprender DevOps, Cloud, Kubernetes y más
-            </p>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h3 class="mt-3">Cargando canales DevOps...</h3>
+            <p class="text-muted">Preparando tu experiencia de aprendizaje</p>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-youtube text-danger me-2"></i>
+                <span class="fw-bold">DevOps Channels</span>
+            </a>
             
-            <!-- Search Bar -->
-            <div class="search-container">
-                <input type="text" 
-                       class="search-input" 
-                       id="searchInput" 
-                       placeholder="Buscar canales, tecnologías o autores...">
-                <i class="bi bi-search search-icon"></i>
+            <div class="d-flex align-items-center ms-auto">
+                <!-- View Toggle -->
+                <div class="btn-group me-3" role="group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary active" data-view="grid">
+                        <i class="bi bi-grid-3x3-gap"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-view="list">
+                        <i class="bi bi-list-ul"></i>
+                    </button>
+                </div>
+                
+                <!-- Theme Toggle -->
+                <button class="btn btn-sm btn-outline-secondary me-3" id="themeToggle">
+                    <i class="bi bi-moon-stars"></i>
+                </button>
+                
+                <!-- Favorites -->
+                <button class="btn btn-sm btn-outline-danger position-relative" id="favoritesBtn">
+                    <i class="bi bi-heart"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="favoritesCount">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center min-vh-50">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4 fw-bold mb-4">
+                        Descubre los Mejores Canales de
+                        <span class="text-gradient">DevOps</span>
+                    </h1>
+                    <p class="lead mb-5">
+                        Aprende de los expertos en Platform Engineering, Cloud, Kubernetes, y más
+                    </p>
+                    
+                    <!-- Advanced Search -->
+                    <div class="search-wrapper">
+                        <div class="search-box">
+                            <i class="bi bi-search search-icon"></i>
+                            <input type="text" 
+                                   class="form-control search-input" 
+                                   id="searchInput" 
+                                   placeholder="Buscar canales, tecnologías, o creadores..."
+                                   autocomplete="off">
+                            <button class="btn btn-sm btn-link clear-search" id="clearSearch" style="display: none;">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Quick Search Suggestions -->
+                        <div class="search-suggestions mt-3" id="searchSuggestions">
+                            <span class="suggestion-label">Búsquedas populares:</span>
+                            <button class="suggestion-tag" data-search="kubernetes">Kubernetes</button>
+                            <button class="suggestion-tag" data-search="docker">Docker</button>
+                            <button class="suggestion-tag" data-search="aws">AWS</button>
+                            <button class="suggestion-tag" data-search="terraform">Terraform</button>
+                            <button class="suggestion-tag" data-search="jenkins">CI/CD</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Animated Background -->
+        <div class="hero-bg">
+            <div class="hero-bg-gradient"></div>
+            <div class="hero-bg-pattern"></div>
+        </div>
+    </section>
+
+    <!-- Featured Channel (DevOps With Jerson) -->
+    <section class="featured-section py-5">
+        <div class="container">
+            <div class="featured-channel-card">
+                <div class="featured-badge">
+                    <i class="bi bi-star-fill"></i> Canal Destacado
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="channel-avatar-large">
+                                <span>DWJ</span>
+                            </div>
+                            <div class="ms-4">
+                                <h2 class="h3 mb-1">DevOps With Jerson</h2>
+                                <p class="text-muted mb-0">Tu guía completa en el mundo DevOps</p>
+                            </div>
+                        </div>
+                        <p class="mb-3">
+                            Contenido especializado en las últimas tecnologías y mejores prácticas de DevOps. 
+                            Desde conceptos básicos hasta implementaciones avanzadas en producción.
+                        </p>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="tech-badge">Kubernetes</span>
+                            <span class="tech-badge">Docker</span>
+                            <span class="tech-badge">CI/CD</span>
+                            <span class="tech-badge">Cloud</span>
+                            <span class="tech-badge">Terraform</span>
+                        </div>
+                        <div class="d-flex gap-3">
+                            <a href="https://www.youtube.com/@DevOpsWithJerson" target="_blank" class="btn btn-danger">
+                                <i class="bi bi-youtube me-2"></i>Visitar Canal
+                            </a>
+                            <button class="btn btn-outline-secondary" onclick="showLatestVideo('DevOpsWithJerson')">
+                                <i class="bi bi-play-circle me-2"></i>Ver Último Video
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="featured-stats">
+                            <div class="stat-item">
+                                <i class="bi bi-people-fill"></i>
+                                <span class="stat-value" id="featuredSubs">Cargando...</span>
+                                <span class="stat-label">Suscriptores</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Overview -->
+    <section class="stats-section py-4">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="bi bi-collection-play stat-icon"></i>
+                    <div class="stat-content">
+                        <h3 class="stat-number" id="totalChannels">0</h3>
+                        <p class="stat-label">Canales</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="bi bi-translate stat-icon"></i>
+                    <div class="stat-content">
+                        <h3 class="stat-number" id="totalLanguages">2</h3>
+                        <p class="stat-label">Idiomas</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="bi bi-tags stat-icon"></i>
+                    <div class="stat-content">
+                        <h3 class="stat-number" id="totalTech">0</h3>
+                        <p class="stat-label">Tecnologías</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="bi bi-people stat-icon"></i>
+                    <div class="stat-content">
+                        <h3 class="stat-number" id="totalSubs">0</h3>
+                        <p class="stat-label">Suscriptores Total</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Filters -->
+    <section class="filters-section py-4">
+        <div class="container">
+            <div class="filters-card">
+                <div class="filters-header">
+                    <h5 class="mb-0">
+                        <i class="bi bi-funnel me-2"></i>Filtros Avanzados
+                    </h5>
+                    <button class="btn btn-sm btn-link" id="resetFilters">
+                        <i class="bi bi-arrow-clockwise me-1"></i>Limpiar
+                    </button>
+                </div>
+                
+                <div class="filters-body">
+                    <!-- Category Filters -->
+                    <div class="filter-group">
+                        <label class="filter-label">Categorías</label>
+                        <div class="filter-tags" id="categoryFilters">
+                            <button class="filter-tag active" data-filter="all">
+                                <i class="bi bi-grid-3x3-gap me-1"></i>Todas
+                            </button>
+                            <button class="filter-tag" data-filter="platform-engineering">
+                                <i class="bi bi-layers me-1"></i>Platform Engineering
+                            </button>
+                            <button class="filter-tag" data-filter="devsecops">
+                                <i class="bi bi-shield-check me-1"></i>DevSecOps
+                            </button>
+                            <button class="filter-tag" data-filter="containers">
+                                <i class="bi bi-box-seam me-1"></i>Containers
+                            </button>
+                            <button class="filter-tag" data-filter="cloud">
+                                <i class="bi bi-cloud me-1"></i>Cloud
+                            </button>
+                            <button class="filter-tag" data-filter="automation">
+                                <i class="bi bi-robot me-1"></i>Automation
+                            </button>
+                            <button class="filter-tag" data-filter="homelab">
+                                <i class="bi bi-house-gear me-1"></i>HomeLab
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Language Filters -->
+                    <div class="filter-group">
+                        <label class="filter-label">Idioma</label>
+                        <div class="filter-tags" id="languageFilters">
+                            <button class="filter-tag active" data-language="all">
+                                <i class="bi bi-globe me-1"></i>Todos
+                            </button>
+                            <button class="filter-tag" data-language="es">
+                                <i class="bi bi-flag me-1"></i>Español
+                            </button>
+                            <button class="filter-tag" data-language="en">
+                                <i class="bi bi-flag me-1"></i>English
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Technology Filters -->
+                    <div class="filter-group">
+                        <label class="filter-label">Tecnologías</label>
+                        <div class="filter-tags tech-filters" id="techFilters">
+                            <!-- Se genera dinámicamente -->
+                        </div>
+                    </div>
+                    
+                    <!-- Subscriber Range -->
+                    <div class="filter-group">
+                        <label class="filter-label">Rango de Suscriptores</label>
+                        <div class="subscriber-filter">
+                            <select class="form-select form-select-sm" id="subscriberRange">
+                                <option value="all">Todos los rangos</option>
+                                <option value="0-10k">Menos de 10K</option>
+                                <option value="10k-50k">10K - 50K</option>
+                                <option value="50k-100k">50K - 100K</option>
+                                <option value="100k-500k">100K - 500K</option>
+                                <option value="500k+">Más de 500K</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Sort Options -->
+                    <div class="filter-group">
+                        <label class="filter-label">Ordenar por</label>
+                        <div class="sort-options">
+                            <select class="form-select form-select-sm" id="sortBy">
+                                <option value="name-asc">Nombre (A-Z)</option>
+                                <option value="name-desc">Nombre (Z-A)</option>
+                                <option value="subs-desc">Más suscriptores</option>
+                                <option value="subs-asc">Menos suscriptores</option>
+                                <option value="recent">Actualizados recientemente</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Active Filters Display -->
+    <section class="active-filters-section py-2" id="activeFiltersSection" style="display: none;">
+        <div class="container">
+            <div class="active-filters-wrapper">
+                <span class="active-filters-label">Filtros activos:</span>
+                <div class="active-filters" id="activeFiltersList"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Channels Grid/List -->
+    <section class="channels-section py-5">
+        <div class="container">
+            <div class="section-header mb-4">
+                <h2 class="h4 mb-0">
+                    <span id="resultsCount">0</span> canales encontrados
+                </h2>
+            </div>
+            
+            <div id="channelsList" class="channels-grid">
+                <!-- Los canales se cargan dinámicamente aquí -->
+            </div>
+            
+            <!-- No Results -->
+            <div id="noResults" class="no-results" style="display: none;">
+                <i class="bi bi-search fs-1"></i>
+                <h4 class="mt-3">No se encontraron canales</h4>
+                <p class="text-muted">Prueba con otros filtros o términos de búsqueda</p>
+                <button class="btn btn-primary" onclick="resetAllFilters()">
+                    <i class="bi bi-arrow-clockwise me-2"></i>Limpiar filtros
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="videoModalTitle">Último Video</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="videoContainer" class="ratio ratio-16x9">
+                        <!-- El iframe del video se carga aquí -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="container">
-        <!-- Statistics Overview -->
-        <div class="stats-overview">
-            <div class="row">
-                <div class="col-md-3 col-6">
-                    <div class="stat-card">
-                        <div class="stat-number" id="totalChannels">0</div>
-                        <div class="stat-label">Canales</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-card">
-                        <div class="stat-number" id="totalCategories">6</div>
-                        <div class="stat-label">Categorías</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-card">
-                        <div class="stat-number" id="spanishChannels">0</div>
-                        <div class="stat-label">En Español</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-card">
-                        <div class="stat-number" id="englishChannels">0</div>
-                        <div class="stat-label">En Inglés</div>
-                    </div>
-                </div>
-            </div>
+    <!-- Favorites Sidebar -->
+    <div class="favorites-sidebar" id="favoritesSidebar">
+        <div class="favorites-header">
+            <h5 class="mb-0">
+                <i class="bi bi-heart-fill text-danger me-2"></i>Favoritos
+            </h5>
+            <button class="btn btn-sm btn-link" onclick="closeFavorites()">
+                <i class="bi bi-x-lg"></i>
+            </button>
         </div>
-
-        <!-- Filters -->
-        <div class="filter-section">
-            <h5 class="mb-3">🏷️ Filtrar por Categoría</h5>
-            <div id="categoryFilters">
-                <button class="btn btn-primary filter-btn active" data-filter="all">
-                    Todos
-                </button>
-                <button class="btn btn-outline-primary filter-btn" data-filter="platform-engineering">
-                    Platform Engineering
-                </button>
-                <button class="btn btn-outline-primary filter-btn" data-filter="devsecops">
-                    DevSecOps
-                </button>
-                <button class="btn btn-outline-primary filter-btn" data-filter="containers">
-                    Containers
-                </button>
-                <button class="btn btn-outline-primary filter-btn" data-filter="cloud">
-                    Cloud
-                </button>
-                <button class="btn btn-outline-primary filter-btn" data-filter="automation">
-                    Automation
-                </button>
-                <button class="btn btn-outline-primary filter-btn" data-filter="homelab">
-                    HomeLab
-                </button>
-            </div>
-
-            <h5 class="mt-4 mb-3">🌐 Filtrar por Idioma</h5>
-            <div id="languageFilters">
-                <button class="btn btn-success filter-btn active" data-language="all">
-                    Todos
-                </button>
-                <button class="btn btn-outline-success filter-btn" data-language="es">
-                    Español
-                </button>
-                <button class="btn btn-outline-success filter-btn" data-language="en">
-                    English
-                </button>
-            </div>
-
-            <h5 class="mt-4 mb-3">🔧 Filtrar por Tecnología</h5>
-            <div id="techFilters">
-                <!-- Se llenará dinámicamente -->
-            </div>
-        </div>
-
-        <!-- Channels List -->
-        <div id="channelsList">
-            <div class="loading-spinner">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Cargando...</span>
-                </div>
-                <p class="mt-2">Cargando canales...</p>
-            </div>
+        <div class="favorites-body" id="favoritesBody">
+            <p class="text-muted text-center py-5">
+                No tienes canales favoritos aún
+            </p>
         </div>
     </div>
+
+    <!-- Back to Top -->
+    <button class="btn btn-primary btn-back-to-top" id="backToTop">
+        <i class="bi bi-arrow-up"></i>
+    </button>
 
     <!-- Footer -->
-    <footer class="mt-5 py-4 bg-light">
-        <div class="container text-center">
-            <p class="mb-0">
-                <a href="https://github.com/Jerson/DevOps-YouTube-Channels" class="text-decoration-none">
-                    <i class="bi bi-github me-2"></i>Contribuye en GitHub
-                </a>
-            </p>
-            <p class="mt-2 text-muted">
-                Mantenido con ❤️ por la comunidad DevOps
-            </p>
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-3">DevOps YouTube Channels</h5>
+                    <p class="text-muted">
+                        Una colección curada de los mejores canales de YouTube para aprender DevOps, 
+                        Cloud Computing, y tecnologías modernas.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://github.com/yourusername/DevOps-YouTube-Channels" target="_blank" class="social-link">
+                            <i class="bi bi-github"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h6 class="mb-3">Enlaces Rápidos</h6>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showAbout()">Acerca de</a></li>
+                        <li><a href="https://github.com/yourusername/DevOps-YouTube-Channels" target="_blank">Contribuir</a></li>
+                        <li><a href="SETUP.md" target="_blank">Documentación</a></li>
+                        <li><a href="https://github.com/yourusername/DevOps-YouTube-Channels/issues" target="_blank">Reportar problema</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6 class="mb-3">Estadísticas</h6>
+                    <p class="small text-muted">
+                        <i class="bi bi-arrow-repeat me-1"></i>Actualizado semanalmente<br>
+                        <i class="bi bi-check-circle me-1"></i>Sin API keys requeridas<br>
+                        <i class="bi bi-shield-check me-1"></i>100% Open Source
+                    </p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0 text-muted">
+                    Hecho con <i class="bi bi-heart-fill text-danger"></i> por la comunidad DevOps
+                </p>
+                <p class="small text-muted mt-2">
+                    Última actualización: <span id="lastUpdate">Cargando...</span>
+                </p>
+            </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/channels-data.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/modern-app.js"></script>
 </body>
 </html> 

@@ -1,5 +1,5 @@
 // Auto-generated channels data
-// Generated on: 2025-06-23T18:17:37.477659
+// Generated on: 2025-06-24T08:46:17.209627
 
 const channelsData = [
   {
@@ -185,6 +185,32 @@ const channelsData = [
     "subscribers": null
   },
   {
+    "name": "DevOps With Jerson ⭐ DESTACADO",
+    "author": "DevOps With Jerson ⭐ DESTACADO",
+    "role": "",
+    "youtube": "https://www.youtube.com/@DevOpsWithJerson",
+    "channelId": "DevOpsWithJerson",
+    "linkedin": null,
+    "category": "platform-engineering",
+    "language": "es",
+    "tags": [],
+    "description": "",
+    "subscribers": null
+  },
+  {
+    "name": "Guillermo Musumeci",
+    "author": "Guillermo Musumeci",
+    "role": "",
+    "youtube": "https://www.youtube.com/@GuillermoMusumeci",
+    "channelId": "GuillermoMusumeci",
+    "linkedin": null,
+    "category": "cloud",
+    "language": "es",
+    "tags": [],
+    "description": "",
+    "subscribers": null
+  },
+  {
     "name": "Hack4u",
     "author": "Hack4u",
     "role": "",
@@ -299,6 +325,32 @@ const channelsData = [
     "language": "es",
     "tags": [],
     "description": "AWS y Oracle Cloud | Terraform | Networking",
+    "subscribers": null
+  },
+  {
+    "name": "https://www.youtube.com/@DevOpsWithJerson",
+    "author": "https://www.youtube.com/@DevOpsWithJerson",
+    "role": "",
+    "youtube": "https://www.youtube.com/@DevOpsWithJerson",
+    "channelId": "DevOpsWithJerson",
+    "linkedin": "https://www.linkedin.com/in/jerson",
+    "category": "platform-engineering",
+    "language": "es",
+    "tags": [],
+    "description": "Kubernetes desde cero hasta producción | Docker y containerización | CI/CD con GitHub Actions y GitLab",
+    "subscribers": null
+  },
+  {
+    "name": "https://www.youtube.com/@GuillermoMusumeci",
+    "author": "https://www.youtube.com/@GuillermoMusumeci",
+    "role": "",
+    "youtube": "https://www.youtube.com/@GuillermoMusumeci",
+    "channelId": "GuillermoMusumeci",
+    "linkedin": "https://www.linkedin.com/in/gmusumeci",
+    "category": "cloud",
+    "language": "es",
+    "tags": [],
+    "description": "Azure desde cero | Terraform en profundidad | AWS y multi-cloud",
     "subscribers": null
   },
   {
@@ -523,6 +575,19 @@ const channelsData = [
     "subscribers": null
   },
   {
+    "name": "https://www.youtube.com/@TechconCatalina",
+    "author": "https://www.youtube.com/@TechconCatalina",
+    "role": "",
+    "youtube": "https://www.youtube.com/@TechconCatalina",
+    "channelId": "TechconCatalina",
+    "linkedin": "https://www.linkedin.com/in/catalinatech",
+    "category": "cloud",
+    "language": "es",
+    "tags": [],
+    "description": "AWS Services explicados | Python para Cloud | Proyectos prácticos",
+    "subscribers": null
+  },
+  {
     "name": "Jeff Geerling",
     "author": "Jeff Geerling",
     "role": "",
@@ -739,6 +804,19 @@ const channelsData = [
     "linkedin": null,
     "category": "cloud",
     "language": "en",
+    "tags": [],
+    "description": "",
+    "subscribers": null
+  },
+  {
+    "name": "Tech con Catalina",
+    "author": "Tech con Catalina",
+    "role": "",
+    "youtube": "https://www.youtube.com/@TechconCatalina",
+    "channelId": "TechconCatalina",
+    "linkedin": null,
+    "category": "cloud",
+    "language": "es",
     "tags": [],
     "description": "",
     "subscribers": null

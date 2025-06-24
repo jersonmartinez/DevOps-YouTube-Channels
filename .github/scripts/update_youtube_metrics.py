@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 Update YouTube channel metrics using web scraping only.
+Enhanced to get more relevant information like latest video date and channel description.
 No API keys required - uses multiple sources for reliability.
 """
 
@@ -9,7 +10,9 @@ import re
 import time
 import random
 import logging
+import json
 from pathlib import Path
+from datetime import datetime, timedelta
 from typing import Dict, Optional, List, Tuple
 import requests
 from bs4 import BeautifulSoup
@@ -24,12 +27,13 @@ ua = UserAgent()
 
 
 class YouTubeMetricsScraper:
-    """Scrape YouTube channel metrics from various sources."""
+    """Scrape YouTube channel metrics and additional information from various sources."""
     
     def __init__(self):
         self.session = requests.Session()
         self.metrics_cache = {}
         self.failed_channels = set()
+        self.enhanced_data = {}  # Store additional channel data
         
     def get_headers(self) -> Dict[str, str]:
         """Get randomized headers for requests."""
@@ -40,7 +44,8 @@ class YouTubeMetricsScraper:
             'Accept-Encoding': 'gzip, deflate, br',
             'DNT': '1',
             'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1'
+            'Upgrade-Insecure-Requests': '1',
+            'Cache-Control': 'max-age=0'
         }
     
     def extract_subscriber_count(self, text: str) -> Optional[int]:
@@ -69,8 +74,35 @@ class YouTubeMetricsScraper:
                     
         return None
     
+    def parse_relative_date(self, date_text: str) -> Optional[str]:
+        """Parse relative dates like '2 days ago' into ISO format."""
+        try:
+            date_text = date_text.lower().strip()
+            now = datetime.now()
+            
+            # Patterns for relative dates
+            patterns = {
+                r'(\d+)\s*second': lambda x: now - timedelta(seconds=int(x)),
+                r'(\d+)\s*minute': lambda x: now - timedelta(minutes=int(x)),
+                r'(\d+)\s*hour': lambda x: now - timedelta(hours=int(x)),
+                r'(\d+)\s*day': lambda x: now - timedelta(days=int(x)),
+                r'(\d+)\s*week': lambda x: now - timedelta(weeks=int(x)),
+                r'(\d+)\s*month': lambda x: now - timedelta(days=int(x)*30),
+                r'(\d+)\s*year': lambda x: now - timedelta(days=int(x)*365),
+            }
+            
+            for pattern, calc_func in patterns.items():
+                match = re.search(pattern, date_text)
+                if match:
+                    date = calc_func(match.group(1))
+                    return date.strftime('%Y-%m-%d')
+                    
+            return None
+        except:
+            return None
+    
     def scrape_socialblade(self, channel_id: str) -> Optional[Dict]:
-        """Scrape metrics from Social Blade."""
+        """Scrape metrics from Social Blade with enhanced data."""
         urls_to_try = [
             f'https://socialblade.com/youtube/c/{channel_id}',
             f'https://socialblade.com/youtube/channel/{channel_id}',
@@ -81,28 +113,56 @@ class YouTubeMetricsScraper:
         for url in urls_to_try:
             try:
                 logger.info(f"Trying Social Blade: {url}")
-                response = self.session.get(url, headers=self.get_headers(), timeout=10)
+                response = self.session.get(url, headers=self.get_headers(), timeout=15)
                 
                 if response.status_code == 200:
                     soup = BeautifulSoup(response.text, 'html.parser')
                     
+                    result = {'source': 'socialblade'}
+                    
                     # Try multiple selectors for subscriber count
-                    selectors = [
+                    sub_selectors = [
                         '#youtube-stats-header-subs',
                         '#YouTubeUserTopInfoBlock span[style*="font-size: 1.4em"]',
-                        '#socialblade-user-content span[style*="font-weight: bold"]',
-                        '.YouTubeUserTopInfo span'
+                        'span#youtube-stats-header-subs',
+                        'div#YouTubeUserTopInfoBlock span[style*="font-size"]'
                     ]
                     
-                    for selector in selectors:
+                    for selector in sub_selectors:
                         element = soup.select_one(selector)
                         if element:
                             count = self.extract_subscriber_count(element.get_text())
                             if count and count > 0:
-                                logger.info(f"Found {count:,} subscribers for {channel_id} on Social Blade")
-                                return {'subscribers': count, 'source': 'socialblade'}
+                                result['subscribers'] = count
+                                break
+                    
+                    # Try to get total views
+                    views_element = soup.select_one('#youtube-stats-header-views')
+                    if views_element:
+                        views_count = self.extract_subscriber_count(views_element.get_text())
+                        if views_count:
+                            result['total_views'] = views_count
+                    
+                    # Try to get video count
+                    videos_element = soup.select_one('#youtube-stats-header-uploads')
+                    if videos_element:
+                        videos_count = self.extract_subscriber_count(videos_element.get_text())
+                        if videos_count:
+                            result['video_count'] = videos_count
+                    
+                    # Try to get channel creation date
+                    creation_element = soup.select_one('#youtube-stats-header-channeltype')
+                    if creation_element:
+                        creation_text = creation_element.get_text()
+                        date_match = re.search(r'(\w+\s+\d+,\s+\d{4})', creation_text)
+                        if date_match:
+                            result['created_date'] = date_match.group(1)
+                    
+                    if result.get('subscribers', 0) > 0:
+                        logger.info(f"Found data for {channel_id} on Social Blade: {result}")
+                        return result
                                 
-                time.sleep(random.uniform(1, 3))
+                time.sleep(random.uniform(2, 4))
                 
             except Exception as e:
                 logger.debug(f"Error scraping Social Blade for {channel_id}: {e}")
@@ -111,36 +171,89 @@ class YouTubeMetricsScraper:
         return None
     
     def scrape_youtube_direct(self, channel_id: str) -> Optional[Dict]:
-        """Try to scrape directly from YouTube (lightweight approach)."""
+        """Try to scrape directly from YouTube with enhanced data extraction."""
         urls_to_try = [
-            f'https://www.youtube.com/@{channel_id}/about',
-            f'https://www.youtube.com/c/{channel_id}/about',
-            f'https://www.youtube.com/channel/{channel_id}/about'
+            f'https://www.youtube.com/@{channel_id}',
+            f'https://www.youtube.com/c/{channel_id}',
+            f'https://www.youtube.com/channel/{channel_id}'
         ]
         
         for url in urls_to_try:
             try:
                 logger.info(f"Trying YouTube direct: {url}")
-                response = self.session.get(url, headers=self.get_headers(), timeout=10)
+                response = self.session.get(url, headers=self.get_headers(), timeout=15)
                 
                 if response.status_code == 200:
-                    # Look for subscriber count in the page
-                    patterns = [
+                    result = {'source': 'youtube'}
+                    
+                    # Look for subscriber count in various patterns
+                    sub_patterns = [
                         r'"subscriberCountText":\s*{\s*"simpleText":\s*"([^"]+)"',
                         r'"subscriberCount":\s*"([^"]+)"',
                         r'subscriber-count"[^>]*>([^<]+)<',
-                        r'"text":"([\d.]+[KMk]?\s*subscribers?)"'
+                        r'"text":"([\d.]+[KMk]?\s*subscribers?)"',
+                        r'"subscriberCountText":\{"accessibility":\{"accessibilityData":\{"label":"([^"]+)"\}\}'
                     ]
                     
-                    for pattern in patterns:
+                    for pattern in sub_patterns:
                         match = re.search(pattern, response.text)
                         if match:
                             count = self.extract_subscriber_count(match.group(1))
                             if count and count > 0:
-                                logger.info(f"Found {count:,} subscribers for {channel_id} on YouTube")
-                                return {'subscribers': count, 'source': 'youtube'}
+                                result['subscribers'] = count
+                                break
+                    
+                    # Try to get channel description
+                    desc_patterns = [
+                        r'"description":\s*"([^"]+)"',
+                        r'"descriptionSnippet":\{"simpleText":"([^"]+)"',
+                        r'<meta name="description" content="([^"]+)"'
+                    ]
+                    
+                    for pattern in desc_patterns:
+                        match = re.search(pattern, response.text)
+                        if match:
+                            description = match.group(1)[:200]  # Limit to 200 chars
+                            result['description'] = description.replace('\\n', ' ').strip()
+                            break
+                    
+                    # Try to get latest video info
+                    video_patterns = [
+                        r'"title":\{"runs":\[\{"text":"([^"]+)"\}\],"accessibility"',
+                        r'"videoTitle":"([^"]+)"',
+                        r'{"videoId":"([^"]+)","thumbnail".*?"title":\{"runs":\[\{"text":"([^"]+)"'
+                    ]
+                    
+                    for pattern in video_patterns:
+                        match = re.search(pattern, response.text)
+                        if match:
+                            if len(match.groups()) > 1:
+                                result['latest_video_title'] = match.group(2)[:100]
+                                result['latest_video_id'] = match.group(1)
+                            else:
+                                result['latest_video_title'] = match.group(1)[:100]
+                            break
+                    
+                    # Try to get upload date of latest video
+                    date_patterns = [
+                        r'"publishedTimeText":\{"simpleText":"([^"]+)"',
+                        r'"dateText":\{"simpleText":"([^"]+)"'
+                    ]
+                    
+                    for pattern in date_patterns:
+                        match = re.search(pattern, response.text)
+                        if match:
+                            date_text = match.group(1)
+                            parsed_date = self.parse_relative_date(date_text)
+                            if parsed_date:
+                                result['latest_video_date'] = parsed_date
+                            break
+                    
+                    if result.get('subscribers', 0) > 0:
+                        logger.info(f"Found data for {channel_id} on YouTube: {result}")
+                        return result
                                 
-                time.sleep(random.uniform(2, 4))
+                time.sleep(random.uniform(3, 6))
                 
             except Exception as e:
                 logger.debug(f"Error scraping YouTube for {channel_id}: {e}")
@@ -148,36 +261,50 @@ class YouTubeMetricsScraper:
                 
         return None
     
-    def scrape_vidiq(self, channel_id: str) -> Optional[Dict]:
-        """Scrape from VidIQ (alternative source)."""
+    def scrape_noxinfluencer(self, channel_id: str) -> Optional[Dict]:
+        """Scrape from NoxInfluencer (alternative source with good data)."""
         try:
-            url = f'https://vidiq.com/youtube-stats/channel/{channel_id}/'
-            logger.info(f"Trying VidIQ: {url}")
+            url = f'https://www.noxinfluencer.com/youtube/channel/{channel_id}'
+            logger.info(f"Trying NoxInfluencer: {url}")
             
             response = self.session.get(url, headers=self.get_headers(), timeout=10)
             
             if response.status_code == 200:
                 soup = BeautifulSoup(response.text, 'html.parser')
+                result = {'source': 'noxinfluencer'}
                 
                 # Look for subscriber count
-                sub_element = soup.find('div', class_='channel-stats-item', string=re.compile('Subscribers'))
+                sub_element = soup.select_one('.channel-info-item:contains("Subscribers") .info-value')
                 if sub_element:
-                    count_element = sub_element.find_next('div', class_='channel-stats-value')
-                    if count_element:
-                        count = self.extract_subscriber_count(count_element.get_text())
-                        if count and count > 0:
-                            logger.info(f"Found {count:,} subscribers for {channel_id} on VidIQ")
-                            return {'subscribers': count, 'source': 'vidiq'}
+                    count = self.extract_subscriber_count(sub_element.get_text())
+                    if count and count > 0:
+                        result['subscribers'] = count
+                
+                # Try to get average views
+                views_element = soup.select_one('.channel-info-item:contains("Avg.Views") .info-value')
+                if views_element:
+                    avg_views = self.extract_subscriber_count(views_element.get_text())
+                    if avg_views:
+                        result['avg_views'] = avg_views
+                
+                # Try to get channel rank
+                rank_element = soup.select_one('.channel-rank-item .rank-value')
+                if rank_element:
+                    result['channel_rank'] = rank_element.get_text().strip()
+                
+                if result.get('subscribers', 0) > 0:
+                    logger.info(f"Found data for {channel_id} on NoxInfluencer: {result}")
+                    return result
                             
-            time.sleep(random.uniform(1, 3))
+            time.sleep(random.uniform(2, 4))
             
         except Exception as e:
-            logger.debug(f"Error scraping VidIQ for {channel_id}: {e}")
+            logger.debug(f"Error scraping NoxInfluencer for {channel_id}: {e}")
             
         return None
     
     def get_channel_metrics(self, channel_id: str) -> Dict:
-        """Get channel metrics using multiple scraping sources."""
+        """Get comprehensive channel metrics using multiple scraping sources."""
         # Check cache first
         if channel_id in self.metrics_cache:
             return self.metrics_cache[channel_id]
@@ -186,28 +313,60 @@ class YouTubeMetricsScraper:
         if channel_id in self.failed_channels:
             return {'subscribers': 0, 'source': 'failed'}
             
-        # Try different sources in order of reliability
+        # Try different sources in order of reliability and data quality
         sources = [
-            ('Social Blade', self.scrape_socialblade),
             ('YouTube Direct', self.scrape_youtube_direct),
-            ('VidIQ', self.scrape_vidiq)
+            ('Social Blade', self.scrape_socialblade),
+            ('NoxInfluencer', self.scrape_noxinfluencer)
         ]
+        
+        combined_result = {
+            'subscribers': 0,
+            'source': 'none',
+            'last_updated': datetime.now().isoformat()
+        }
         
         for source_name, scrape_func in sources:
             try:
                 result = scrape_func(channel_id)
-                if result and result.get('subscribers', 0) > 0:
-                    self.metrics_cache[channel_id] = result
-                    return result
+                if result:
+                    # Merge results, preferring non-zero values
+                    for key, value in result.items():
+                        if value and (key not in combined_result or not combined_result.get(key)):
+                            combined_result[key] = value
+                    
+                    # If we have subscribers, update source
+                    if result.get('subscribers', 0) > 0:
+                        combined_result['subscribers'] = result['subscribers']
+                        if combined_result['source'] == 'none':
+                            combined_result['source'] = result.get('source', source_name.lower())
+                        
             except Exception as e:
                 logger.error(f"Error with {source_name} for {channel_id}: {e}")
                 continue
-                
-        # If all sources fail, mark as failed
-        self.failed_channels.add(channel_id)
-        logger.warning(f"Could not get metrics for {channel_id} from any source")
         
-        return {'subscribers': 0, 'source': 'none'}
+        # Store enhanced data separately
+        if channel_id not in self.enhanced_data:
+            self.enhanced_data[channel_id] = {}
+        
+        # Extract enhanced data from combined result
+        enhanced_fields = ['description', 'latest_video_title', 'latest_video_id', 
+                          'latest_video_date', 'total_views', 'video_count', 
+                          'avg_views', 'channel_rank', 'created_date']
+        
+        for field in enhanced_fields:
+            if field in combined_result:
+                self.enhanced_data[channel_id][field] = combined_result[field]
+        
+        # Cache the result
+        if combined_result['subscribers'] > 0:
+            self.metrics_cache[channel_id] = combined_result
+            logger.info(f"Successfully scraped {channel_id}: {combined_result['subscribers']:,} subscribers")
+        else:
+            self.failed_channels.add(channel_id)
+            logger.warning(f"Could not get metrics for {channel_id} from any source")
+        
+        return combined_result
     
     def extract_channel_ids(self, content: str) -> List[Tuple[str, str]]:
         """Extract YouTube channel IDs and their context from markdown content."""
@@ -246,7 +405,7 @@ class YouTubeMetricsScraper:
             return str(count)
     
     def update_markdown_file(self, file_path: Path) -> bool:
-        """Update subscriber counts in a markdown file."""
+        """Update subscriber counts and enhanced data in a markdown file."""
         logger.info(f"Processing {file_path}")
         
         try:
@@ -268,12 +427,15 @@ class YouTubeMetricsScraper:
                 
                 if metrics['subscribers'] > 0:
                     formatted_count = self.format_subscriber_count(metrics['subscribers'])
-                    new_badge = f'![YouTube Channel Subscribers](https://img.shields.io/badge/subscribers-{formatted_count}-red)'
+                    
+                    # Create enhanced badge with last update info
+                    update_date = datetime.now().strftime('%Y-%m-%d')
+                    new_badge = f'![YouTube Channel Subscribers](https://img.shields.io/badge/subscribers-{formatted_count}-red) ![Last Update](https://img.shields.io/badge/updated-{update_date}-blue)'
                     
                     # Pattern to find and replace existing badges near this channel
                     patterns = [
                         # Existing badge pattern
-                        (rf'(youtube\.com/[@/]{re.escape(channel_id)}.*?\n?)!\[YouTube Channel Subscribers\]\(https://img\.shields\.io/badge/subscribers-[^)]+\)', rf'\1{new_badge}'),
+                        (rf'(youtube\.com/[@/]{re.escape(channel_id)}.*?\n?)!\[YouTube Channel Subscribers\]\(https://img\.shields\.io/badge/subscribers-[^)]+\)(\s*!\[Last Update\]\([^)]+\))?', rf'\1{new_badge}'),
                         # Shield.io YouTube badge
                         (rf'(youtube\.com/[@/]{re.escape(channel_id)}.*?\n?)!\[[^\]]*\]\(https://img\.shields\.io/youtube/channel/subscribers/[^)]+\)', rf'\1{new_badge}'),
                         # Generic subscriber badge
@@ -284,7 +446,7 @@ class YouTubeMetricsScraper:
                     for pattern, replacement in patterns:
                         if re.search(pattern, content, re.IGNORECASE | re.DOTALL):
                             content = re.sub(pattern, replacement, content, flags=re.IGNORECASE | re.DOTALL)
-                            logger.info(f"Updated {channel_id}: {formatted_count} subscribers (source: {metrics.get('source', 'unknown')})")
+                            logger.info(f"Updated {channel_id}: {formatted_count} subscribers")
                             updates_made += 1
                             replaced = True
                             break
@@ -298,6 +460,15 @@ class YouTubeMetricsScraper:
                             content = re.sub(channel_pattern, replacement, content, count=1)
                             logger.info(f"Added badge for {channel_id}: {formatted_count} subscribers")
                             updates_made += 1
+                    
+                    # Add enhanced data as a comment (won't be visible in rendered markdown)
+                    enhanced_data = self.enhanced_data.get(channel_id, {})
+                    if enhanced_data and 'latest_video_date' in enhanced_data:
+                        comment = f"\n<!-- Enhanced data for {channel_id}: {json.dumps(enhanced_data, ensure_ascii=False)} -->\n"
+                        # Add after the channel section
+                        channel_section_pattern = rf'(### [^\n]*{re.escape(channel_id)}[^\n]*\n(?:.*?\n)*?)(?=###|\Z)'
+                        if re.search(channel_section_pattern, content, re.DOTALL):
+                            content = re.sub(channel_section_pattern, rf'\1{comment}', content, flags=re.DOTALL)
             
             # Write back if changed
             if content != original_content:
@@ -311,6 +482,17 @@ class YouTubeMetricsScraper:
         except Exception as e:
             logger.error(f"Error updating {file_path}: {e}")
             return False
+    
+    def save_enhanced_data(self):
+        """Save enhanced channel data to a JSON file."""
+        if self.enhanced_data:
+            output_file = Path(__file__).parent.parent.parent / 'data' / 'enhanced_channel_data.json'
+            output_file.parent.mkdir(exist_ok=True)
+            
+            with open(output_file, 'w', encoding='utf-8') as f:
+                json.dump(self.enhanced_data, f, indent=2, ensure_ascii=False)
+            
+            logger.info(f"Saved enhanced data for {len(self.enhanced_data)} channels to {output_file}")
     
     def update_all_files(self):
         """Update all markdown files with channel metrics."""
@@ -332,6 +514,9 @@ class YouTubeMetricsScraper:
                 if self.update_markdown_file(file_path):
                     files_updated += 1
         
+        # Save enhanced data
+        self.save_enhanced_data()
+        
         # Summary
         logger.info(f"\n{'='*50}")
         logger.info(f"SUMMARY:")
@@ -339,20 +524,29 @@ class YouTubeMetricsScraper:
         logger.info(f"Channels processed: {len(self.metrics_cache)}")
         logger.info(f"Successful scrapes: {len([m for m in self.metrics_cache.values() if m.get('subscribers', 0) > 0])}")
         logger.info(f"Failed channels: {len(self.failed_channels)}")
+        logger.info(f"Channels with enhanced data: {len(self.enhanced_data)}")
         
         if self.failed_channels:
             logger.info(f"\nFailed channels: {', '.join(sorted(self.failed_channels))}")
+        
+        # Show sample of enhanced data
+        if self.enhanced_data:
+            logger.info("\nSample enhanced data:")
+            for channel_id, data in list(self.enhanced_data.items())[:3]:
+                if 'latest_video_title' in data:
+                    logger.info(f"  {channel_id}: Latest video - {data['latest_video_title'][:50]}...")
 
 
 def main():
     """Main function to update YouTube metrics via scraping."""
-    logger.info("Starting YouTube metrics update (web scraping mode)")
+    logger.info("Starting YouTube metrics update (enhanced web scraping mode)")
     logger.info("No API keys required - using public web data")
+    logger.info("Will collect: subscriber counts, latest videos, descriptions, and more")
     
     scraper = YouTubeMetricsScraper()
     scraper.update_all_files()
     
-    logger.info("\nUpdate complete!")
+    logger.info("\nUpdate complete! Check data/enhanced_channel_data.json for additional information.")
 
 
 if __name__ == '__main__':
