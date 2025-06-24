@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤝 Contribuir - DevOps YouTube Channels</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad1' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%23667eea;stop-opacity:1' /><stop offset='100%' style='stop-color:%23764ba2;stop-opacity:1' /></linearGradient></defs><rect width='100' height='100' fill='url(%23grad1)' rx='20'/><text x='50' y='35' font-family='Arial, sans-serif' font-size='20' font-weight='bold' text-anchor='middle' fill='white'>DevOps</text><text x='50' y='65' font-family='Arial, sans-serif' font-size='16' text-anchor='middle' fill='white'>📺</text></svg>">
+    <meta name="description" content="Contribuye a la comunidad DevOps agregando canales de YouTube de alta calidad">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/modern-styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-youtube text-danger me-2"></i>
+                <span class="fw-bold">DevOps Channels</span>
+            </a>
+            
+            <div class="d-flex align-items-center ms-auto">
+                <a href="index.html" class="btn btn-sm btn-outline-secondary me-3">
+                    <i class="bi bi-arrow-left me-1"></i>Volver al inicio
+                </a>
+                
+                <button class="btn btn-sm btn-outline-secondary" id="themeToggle">
+                    <i class="bi bi-moon-stars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h1 class="display-4 fw-bold mb-4">
+                        Contribuye a la
+                        <span class="text-gradient">Comunidad DevOps</span>
+                    </h1>
+                    <p class="lead mb-5">
+                        Ayuda a otros desarrolladores y DevOps Engineers a descubrir canales de YouTube de alta calidad
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-bg">
+            <div class="hero-bg-gradient"></div>
+            <div class="hero-bg-pattern"></div>
+        </div>
+    </section>
+
+    <!-- Contribution Options -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Quick Suggest -->
+                <div class="col-md-6">
+                    <div class="contribution-card h-100">
+                        <div class="card-icon">
+                            <i class="bi bi-lightning-charge text-primary"></i>
+                        </div>
+                        <h3>Sugerir Canal Rápido</h3>
+                        <p>Usa nuestro formulario rápido para sugerir un canal. Perfecto para contribuciones rápidas.</p>
+                        <button class="btn btn-primary w-100" onclick="showQuickForm()">
+                            <i class="bi bi-plus-circle me-2"></i>Sugerir Canal
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- GitHub Contribution -->
+                <div class="col-md-6">
+                    <div class="contribution-card h-100">
+                        <div class="card-icon">
+                            <i class="bi bi-github text-dark"></i>
+                        </div>
+                        <h3>Contribuir via GitHub</h3>
+                        <p>Para contribuidores avanzados. Crea un Pull Request directamente en GitHub.</p>
+                        <a href="https://github.com/jersonmartinez/DevOps-YouTube-Channels/pulls" target="_blank" class="btn btn-outline-dark w-100">
+                            <i class="bi bi-git me-2"></i>Crear Pull Request
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Form Modal -->
+    <div class="modal fade" id="quickSuggestModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-plus-circle me-2"></i>Sugerir Nuevo Canal
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="suggestChannelForm">
+                        <div class="row g-3">
+                            <!-- Channel Name -->
+                            <div class="col-md-6">
+                                <label for="channelName" class="form-label">Nombre del Canal *</label>
+                                <input type="text" class="form-control" id="channelName" required>
+                                <div class="form-text">Ej: DevOps With Jerson</div>
+                            </div>
+                            
+                            <!-- Channel URL -->
+                            <div class="col-md-6">
+                                <label for="channelUrl" class="form-label">URL del Canal *</label>
+                                <input type="url" class="form-control" id="channelUrl" placeholder="https://www.youtube.com/@..." required>
+                            </div>
+                            
+                            <!-- Author -->
+                            <div class="col-md-6">
+                                <label for="authorName" class="form-label">Autor/Creador *</label>
+                                <input type="text" class="form-control" id="authorName" required>
+                            </div>
+                            
+                            <!-- LinkedIn -->
+                            <div class="col-md-6">
+                                <label for="linkedinUrl" class="form-label">LinkedIn (opcional)</label>
+                                <input type="url" class="form-control" id="linkedinUrl" placeholder="https://linkedin.com/in/...">
+                            </div>
+                            
+                            <!-- Role -->
+                            <div class="col-md-6">
+                                <label for="authorRole" class="form-label">Rol/Posición *</label>
+                                <input type="text" class="form-control" id="authorRole" placeholder="Ej: DevOps Engineer" required>
+                            </div>
+                            
+                            <!-- Language -->
+                            <div class="col-md-6">
+                                <label for="channelLanguage" class="form-label">Idioma *</label>
+                                <select class="form-select" id="channelLanguage" required>
+                                    <option value="">Selecciona idioma</option>
+                                    <option value="es">Español</option>
+                                    <option value="en">English</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Category -->
+                            <div class="col-md-6">
+                                <label for="channelCategory" class="form-label">Categoría *</label>
+                                <select class="form-select" id="channelCategory" required>
+                                    <option value="">Selecciona categoría</option>
+                                    <option value="platform-engineering">Platform Engineering</option>
+                                    <option value="devsecops">DevSecOps</option>
+                                    <option value="containers">Containers</option>
+                                    <option value="cloud">Cloud</option>
+                                    <option value="automation">Automation</option>
+                                    <option value="homelab">HomeLab</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Tags -->
+                            <div class="col-md-6">
+                                <label for="channelTags" class="form-label">Tecnologías/Tags *</label>
+                                <input type="text" class="form-control" id="channelTags" placeholder="kubernetes,docker,aws,terraform" required>
+                                <div class="form-text">Separa por comas. Ej: kubernetes,docker,aws</div>
+                            </div>
+                            
+                            <!-- Description -->
+                            <div class="col-12">
+                                <label for="channelDescription" class="form-label">Descripción del Canal *</label>
+                                <textarea class="form-control" id="channelDescription" rows="3" required 
+                                          placeholder="Descripción breve del contenido del canal y por qué es valioso para la comunidad DevOps"></textarea>
+                            </div>
+                            
+                            <!-- Why suggest -->
+                            <div class="col-12">
+                                <label for="whySuggest" class="form-label">¿Por qué recomiendas este canal?</label>
+                                <textarea class="form-control" id="whySuggest" rows="2" 
+                                          placeholder="Opcional: Explica por qué crees que este canal debería ser incluido"></textarea>
+                            </div>
+                            
+                            <!-- Your info -->
+                            <div class="col-md-6">
+                                <label for="contributorName" class="form-label">Tu nombre (opcional)</label>
+                                <input type="text" class="form-control" id="contributorName" placeholder="Para darte crédito">
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="contributorEmail" class="form-label">Tu email (opcional)</label>
+                                <input type="email" class="form-control" id="contributorEmail" placeholder="Para contactarte si es necesario">
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 p-3 bg-light rounded">
+                            <h6><i class="bi bi-info-circle me-2"></i>Criterios de Selección</h6>
+                            <ul class="mb-0 small">
+                                <li>Contenido de alta calidad relacionado con DevOps</li>
+                                <li>Videos regulares y actualizados</li>
+                                <li>Creador reconocido en la comunidad</li>
+                                <li>Contenido en español o inglés</li>
+                                <li>Enfoque educativo o técnico</li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" form="suggestChannelForm">
+                        <i class="bi bi-send me-2"></i>Enviar Sugerencia
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contribution Guidelines -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="text-center mb-5">
+                        <i class="bi bi-book me-2"></i>Guía de Contribución
+                    </h2>
+                    
+                    <div class="accordion" id="contributionGuide">
+                        <!-- Quality Standards -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#quality">
+                                    <i class="bi bi-award me-2"></i>Estándares de Calidad
+                                </button>
+                            </h2>
+                            <div id="quality" class="accordion-collapse collapse show" data-bs-parent="#contributionGuide">
+                                <div class="accordion-body">
+                                    <h6>Criterios para Canales:</h6>
+                                    <ul>
+                                        <li><strong>Contenido relevante:</strong> DevOps, Cloud, Platform Engineering, Containers, etc.</li>
+                                        <li><strong>Calidad técnica:</strong> Información precisa y bien explicada</li>
+                                        <li><strong>Regularidad:</strong> Uploads consistentes (al menos 1 video por mes)</li>
+                                        <li><strong>Comunidad:</strong> Engagement activo con la audiencia</li>
+                                        <li><strong>Experiencia:</strong> Creador con experiencia demostrable</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Approval Process -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#approval">
+                                    <i class="bi bi-check-circle me-2"></i>Proceso de Aprobación
+                                </button>
+                            </h2>
+                            <div id="approval" class="accordion-collapse collapse" data-bs-parent="#contributionGuide">
+                                <div class="accordion-body">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="process-step">
+                                                <div class="step-number">1</div>
+                                                <h6>Envío</h6>
+                                                <p>Sugieres un canal mediante el formulario o GitHub</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="process-step">
+                                                <div class="step-number">2</div>
+                                                <h6>Revisión Automática</h6>
+                                                <p>El sistema verifica URL, duplicados y formato</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="process-step">
+                                                <div class="step-number">3</div>
+                                                <h6>Revisión Manual</h6>
+                                                <p>Mantenedores evalúan la calidad del contenido</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="process-step">
+                                                <div class="step-number">4</div>
+                                                <h6>Aprobación</h6>
+                                                <p>Canal agregado y métricas actualizadas</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Technical Requirements -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#technical">
+                                    <i class="bi bi-code-slash me-2"></i>Contribución Técnica
+                                </button>
+                            </h2>
+                            <div id="technical" class="accordion-collapse collapse" data-bs-parent="#contributionGuide">
+                                <div class="accordion-body">
+                                    <h6>Para desarrolladores:</h6>
+                                    <div class="code-block">
+                                        <pre><code># 1. Fork el repositorio
+git clone https://github.com/jersonmartinez/DevOps-YouTube-Channels.git
+
+# 2. Crea una rama para tu contribución
+git checkout -b add-channel-nombre-canal
+
+# 3. Agrega el canal en el archivo correspondiente
+# Ejemplo en categories/cloud.md:
+
+### Nuevo Canal
+[![@NuevoCanal](https://img.shields.io/youtube/channel/subscribers/CHANNEL_ID?label=%40NuevoCanal&style=social)](https://www.youtube.com/@NuevoCanal?sub_confirmation=1)
+
+**Canal**: https://www.youtube.com/@NuevoCanal
+**LinkedIn**: [Autor](https://linkedin.com/in/autor)
+**Rol**: DevOps Engineer
+**Etiquetas**: `#aws` `#terraform` `#kubernetes`
+
+#### 🎯 Contenido Destacado
+- Descripción del contenido
+- Temas principales
+- Valor para la comunidad
+
+# 4. Commit y Push
+git add .
+git commit -m "Add: Nuevo canal de DevOps sobre AWS"
+git push origin add-channel-nombre-canal
+
+# 5. Crear Pull Request en GitHub</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center">
+                <p class="mb-0">
+                    <i class="bi bi-heart-fill text-danger me-2"></i>
+                    Gracias por contribuir a la comunidad DevOps
+                </p>
+                <p class="small text-muted mt-2">
+                    Juntos construimos el mejor recurso de aprendizaje DevOps
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Theme toggle
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            const body = document.body;
+            const icon = this.querySelector('i');
+            
+            if (body.hasAttribute('data-theme')) {
+                body.removeAttribute('data-theme');
+                icon.className = 'bi bi-moon-stars';
+                localStorage.setItem('devops-theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                icon.className = 'bi bi-sun';
+                localStorage.setItem('devops-theme', 'dark');
+            }
+        });
+
+        // Initialize theme
+        if (localStorage.getItem('devops-theme') === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            document.querySelector('#themeToggle i').className = 'bi bi-sun';
+        }
+
+        // Show quick form
+        function showQuickForm() {
+            new bootstrap.Modal(document.getElementById('quickSuggestModal')).show();
+        }
+
+        // Handle form submission
+        document.getElementById('suggestChannelForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            // Add form data to GitHub issue template
+            const issueData = {
+                title: `[CHANNEL SUGGESTION] ${document.getElementById('channelName').value}`,
+                body: `## 📺 Canal Sugerido
+
+**Nombre del Canal:** ${document.getElementById('channelName').value}
+**URL:** ${document.getElementById('channelUrl').value}
+**Autor:** ${document.getElementById('authorName').value}
+**LinkedIn:** ${document.getElementById('linkedinUrl').value || 'No proporcionado'}
+**Rol:** ${document.getElementById('authorRole').value}
+**Idioma:** ${document.getElementById('channelLanguage').value}
+**Categoría:** ${document.getElementById('channelCategory').value}
+**Tags:** ${document.getElementById('channelTags').value}
+
+**Descripción:**
+${document.getElementById('channelDescription').value}
+
+**¿Por qué recomiendas este canal?**
+${document.getElementById('whySuggest').value || 'No especificado'}
+
+**Información del Contribuidor:**
+- Nombre: ${document.getElementById('contributorName').value || 'Anónimo'}
+- Email: ${document.getElementById('contributorEmail').value || 'No proporcionado'}
+
+---
+*Esta sugerencia fue enviada a través del formulario web.*`
+            };
+            
+            // Create GitHub issue URL
+            const githubUrl = `https://github.com/jersonmartinez/DevOps-YouTube-Channels/issues/new?title=${encodeURIComponent(issueData.title)}&body=${encodeURIComponent(issueData.body)}&labels=channel-suggestion,needs-review`;
+            
+            // Open GitHub issue
+            window.open(githubUrl, '_blank');
+            
+            // Close modal and show success message
+            bootstrap.Modal.getInstance(document.getElementById('quickSuggestModal')).hide();
+            
+            // Show success alert
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3';
+            alert.style.zIndex = '9999';
+            alert.innerHTML = `
+                <i class="bi bi-check-circle me-2"></i>
+                ¡Sugerencia enviada! Se abrirá un issue en GitHub para revisión.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.body.appendChild(alert);
+            
+            // Auto-dismiss alert
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 5000);
+            
+            // Reset form
+            this.reset();
+        });
+    </script>
+
+    <style>
+        .contribution-card {
+            background: var(--bg-primary);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            transition: var(--transition-base);
+            border: 2px solid transparent;
+        }
+
+        .contribution-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 0.5rem;
+        }
+
+        .code-block {
+            background: var(--bg-secondary);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+    </style>
+</body>
+</html> 

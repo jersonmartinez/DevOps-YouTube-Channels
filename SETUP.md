@@ -27,7 +27,7 @@ pip install -r requirements.txt
 
 ### 1. Clonar el Repositorio
 ```bash
-git clone https://github.com/yourusername/DevOps-YouTube-Channels.git
+git clone https://github.com/jersonmartinez/DevOps-YouTube-Channels.git
 cd DevOps-YouTube-Channels
 ```
 

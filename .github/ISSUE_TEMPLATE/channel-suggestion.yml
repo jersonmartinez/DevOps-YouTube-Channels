@@ -1,0 +1,167 @@
+name: 📺 Sugerir Nuevo Canal
+description: Sugiere un canal de YouTube DevOps para incluir en la colección
+title: "[CHANNEL] "
+labels: ["channel-suggestion", "needs-review"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🙏 Gracias por contribuir a la comunidad DevOps!
+        
+        Por favor completa la siguiente información para ayudarnos a evaluar el canal sugerido.
+        
+        ### ✅ Criterios de Selección:
+        - Contenido de alta calidad relacionado con DevOps
+        - Videos regulares y actualizados
+        - Creador reconocido en la comunidad
+        - Contenido en español o inglés
+        - Enfoque educativo o técnico
+
+  - type: input
+    id: channel-name
+    attributes:
+      label: Nombre del Canal
+      description: Nombre oficial del canal de YouTube
+      placeholder: "ej: DevOps With Jerson"
+    validations:
+      required: true
+
+  - type: input
+    id: channel-url
+    attributes:
+      label: URL del Canal
+      description: Link directo al canal de YouTube
+      placeholder: "https://www.youtube.com/@DevOpsWithJerson"
+    validations:
+      required: true
+
+  - type: input
+    id: author-name
+    attributes:
+      label: Nombre del Autor/Creador
+      description: Nombre de la persona que mantiene el canal
+      placeholder: "ej: Jerson"
+    validations:
+      required: true
+
+  - type: input
+    id: author-linkedin
+    attributes:
+      label: LinkedIn del Autor (opcional)
+      description: Perfil de LinkedIn del creador
+      placeholder: "https://linkedin.com/in/jerson"
+    validations:
+      required: false
+
+  - type: input
+    id: author-role
+    attributes:
+      label: Rol/Posición del Autor
+      description: Título profesional o rol actual
+      placeholder: "ej: DevOps Engineer & Content Creator"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: channel-language
+    attributes:
+      label: Idioma del Canal
+      description: Idioma principal del contenido
+      options:
+        - Español
+        - English
+    validations:
+      required: true
+
+  - type: dropdown
+    id: channel-category
+    attributes:
+      label: Categoría Principal
+      description: Categoría que mejor describe el contenido
+      options:
+        - Platform Engineering
+        - DevSecOps
+        - Containers
+        - Cloud
+        - Automation
+        - HomeLab
+    validations:
+      required: true
+
+  - type: input
+    id: channel-tags
+    attributes:
+      label: Tecnologías/Tags
+      description: Lista de tecnologías principales (separadas por comas)
+      placeholder: "kubernetes,docker,aws,terraform,ci/cd"
+    validations:
+      required: true
+
+  - type: textarea
+    id: channel-description
+    attributes:
+      label: Descripción del Canal
+      description: Descripción breve del contenido y valor que aporta
+      placeholder: "Describe brevemente qué tipo de contenido crea el canal y por qué es valioso para la comunidad DevOps"
+      rows: 3
+    validations:
+      required: true
+
+  - type: textarea
+    id: why-suggest
+    attributes:
+      label: ¿Por qué recomiendas este canal?
+      description: Explica por qué crees que debería ser incluido (opcional)
+      placeholder: "Comparte tu experiencia personal o por qué crees que este canal es valioso"
+      rows: 2
+    validations:
+      required: false
+
+  - type: input
+    id: subscriber-count
+    attributes:
+      label: Número aproximado de suscriptores (opcional)
+      description: Si conoces el número de suscriptores, compártelo
+      placeholder: "ej: 50K, 150K, 1M"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: quality-check
+    attributes:
+      label: Verificación de Calidad
+      description: Confirma que el canal cumple con los criterios
+      options:
+        - label: El canal tiene contenido regular y actualizado
+          required: true
+        - label: El contenido es técnicamente preciso y bien explicado
+          required: true
+        - label: El canal se enfoca en temas DevOps/Cloud/Platform Engineering
+          required: true
+        - label: El creador tiene experiencia demostrable en el área
+          required: true
+
+  - type: input
+    id: contributor-name
+    attributes:
+      label: Tu nombre (opcional)
+      description: Para darte crédito por la contribución
+      placeholder: "Nombre o usuario de GitHub"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        ### 🔄 Proceso de Revisión:
+        1. **Revisión automática**: Verificación de URL y formato
+        2. **Revisión manual**: Evaluación de calidad del contenido
+        3. **Aprobación**: Canal agregado a la colección
+        
+        ### ⏱️ Tiempo estimado: 3-7 días
+        
+        ¡Gracias por ayudar a crecer la comunidad DevOps! 🚀 

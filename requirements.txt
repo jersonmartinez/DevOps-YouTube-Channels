@@ -3,6 +3,9 @@ beautifulsoup4==4.12.2
 requests==2.31.0
 fake-useragent==1.4.0
 
+# Validation dependencies
+validators==0.22.0
+
 # For environment variables (optional)
 python-dotenv==1.0.0
 

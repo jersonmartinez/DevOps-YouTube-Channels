@@ -1,0 +1,245 @@
+name: Validate Pull Request
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'categories/*.md'
+      - 'Spanish-Channels.md'
+      - 'English-Channels.md'
+      - '**.md'
+
+jobs:
+  validate-content:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 validators PyYAML
+      
+      - name: Validate channel URLs
+        id: validate_urls
+        run: |
+          echo "Validating YouTube channel URLs..." | tee validation_report.txt
+          python .github/scripts/validate_channels.py >> validation_report.txt
+        continue-on-error: true
+      
+      - name: Check for duplicates
+        id: check_duplicates
+        run: |
+          echo "Checking for duplicate channels..." | tee -a validation_report.txt
+          python .github/scripts/check_duplicates.py >> validation_report.txt
+        continue-on-error: true
+      
+      - name: Validate markdown format
+        id: validate_format
+        run: |
+          echo "Validating markdown format..." | tee -a validation_report.txt
+          
+          # Check if markdown files are valid
+          for file in $(git diff --name-only origin/main...HEAD | grep -E '\.(md)$'); do
+            if [ -f "$file" ]; then
+              echo "Checking $file..."
+              # Basic markdown validation
+              if grep -q "http" "$file"; then
+                echo "✅ $file contains links"
+              else
+                echo "⚠️ $file may not contain valid links"
+              fi
+            fi
+          done
+      
+      - name: Generate test data
+        run: |
+          echo "Generating test data with new channels..." | tee -a validation_report.txt
+          python .github/scripts/generate_channels_data.py
+          
+          if [ $? -eq 0 ]; then
+            echo "✅ Data generation successful" | tee -a validation_report.txt
+          else
+            echo "❌ Data generation failed" | tee -a validation_report.txt
+          fi
+      
+      - name: Test web functionality
+        run: |
+          echo "Testing web functionality..." | tee -a validation_report.txt
+          
+          # Start simple HTTP server in background
+          python -m http.server 8000 &
+          SERVER_PID=$!
+          
+          # Wait for server to start
+          sleep 3
+          
+          # Test if main page loads
+          if curl -f http://localhost:8000/ > /dev/null 2>&1; then
+            echo "✅ Main page loads successfully" | tee -a validation_report.txt
+          else
+            echo "❌ Main page failed to load" | tee -a validation_report.txt
+          fi
+          
+          # Test if JavaScript data loads
+          if curl -f http://localhost:8000/js/channels-data.js > /dev/null 2>&1; then
+            echo "✅ JavaScript data loads successfully" | tee -a validation_report.txt
+          else
+            echo "❌ JavaScript data failed to load" | tee -a validation_report.txt
+          fi
+          
+          # Stop server
+          kill $SERVER_PID
+      
+      - name: Create validation summary
+        run: |
+          echo "## 🔍 Validation Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Validation Results:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat validation_report.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Count changes
+          CHANGED_FILES=$(git diff --name-only origin/main...HEAD | grep -E '\.(md)$' | wc -l)
+          echo "### 📝 Files Modified: $CHANGED_FILES" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # List changed files
+          echo "### 📄 Changed Files:" >> $GITHUB_STEP_SUMMARY
+          git diff --name-only origin/main...HEAD | grep -E '\.(md)$' | while read file; do
+            echo "- $file" >> $GITHUB_STEP_SUMMARY
+          done
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### ✅ Next Steps:" >> $GITHUB_STEP_SUMMARY
+          echo "1. Review validation results above" >> $GITHUB_STEP_SUMMARY
+          echo "2. Manual content review by maintainers" >> $GITHUB_STEP_SUMMARY
+          echo "3. Approve and merge if all checks pass" >> $GITHUB_STEP_SUMMARY
+      
+      - name: Comment PR with results
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            
+            let report = '';
+            try {
+              report = fs.readFileSync('validation_report.txt', 'utf8');
+            } catch (error) {
+              report = 'No validation report generated';
+            }
+            
+            const comment = `## 🤖 Automated Validation Results
+            
+            **Status**: Validation completed
+            
+            ### 📊 Validation Report:
+            \`\`\`
+            ${report}
+            \`\`\`
+            
+            ### ⏭️ Next Steps:
+            1. ✅ Automated checks completed
+            2. ⏳ Awaiting manual review by maintainers
+            3. 📋 Please ensure all items in the PR template are checked
+            
+            ### 📚 Resources:
+            - [Contribution Guidelines](https://github.com/${context.repo.owner}/${context.repo.repo}/blob/main/contribute.html)
+            - [Quality Standards](https://github.com/${context.repo.owner}/${context.repo.repo}/blob/main/CONTRIBUTING.md)
+            
+            ---
+            *This comment was generated automatically by the validation workflow.*`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+      
+      - name: Label PR
+        uses: actions/github-script@v6
+        with:
+          script: |
+            // Add appropriate labels based on validation results
+            const labels = ['needs-review'];
+            
+            // Check if this is adding new channels
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            
+            const hasNewChannels = files.some(file => 
+              file.status === 'modified' && 
+              file.filename.match(/\.(md)$/) &&
+              file.additions > file.deletions
+            );
+            
+            if (hasNewChannels) {
+              labels.push('new-channel');
+            }
+            
+            // Add validation status label
+            labels.push('validation-completed');
+            
+            await github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: labels
+            });
+
+  security-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Security scan
+        run: |
+          echo "🔒 Running security checks..." | tee security_report.txt
+          
+          # Check for suspicious URLs
+          echo "Checking for malicious URLs..." | tee -a security_report.txt
+          if grep -r "bit.ly\|tinyurl\|short.link" . --include="*.md" | grep -v ".git"; then
+            echo "❌ Found suspicious shortened URLs" | tee -a security_report.txt
+            exit 1
+          else
+            echo "✅ No suspicious URLs found" | tee -a security_report.txt
+          fi
+          
+          # Check that all URLs are YouTube or LinkedIn
+          echo "Validating allowed domains..." | tee -a security_report.txt
+          if grep -Eo 'https?://[^[:space:]]+' $(git diff --name-only origin/main...HEAD | grep -E '\.(md)$') | \
+             grep -v -E "(youtube\.com|linkedin\.com|github\.com)" | head -5; then
+            echo "⚠️ Found URLs to non-standard domains (review required)" | tee -a security_report.txt
+          else
+            echo "✅ All URLs are from trusted domains" | tee -a security_report.txt
+          fi
+          
+          echo "🔒 Security check completed" | tee -a security_report.txt
+      
+      - name: Upload security report
+        run: |
+          echo "## 🔒 Security Check Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat security_report.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY 
