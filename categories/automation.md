@@ -11,6 +11,23 @@ This category focuses on infrastructure automation, CI/CD, and Infrastructure as
 
 ## 📺 Spanish Channels | Canales en Español
 
+### DevOps With Jerson
+[![@DevOpsWithJerson](https://img.shields.io/youtube/channel/subscribers/UCDGDomhWVjI9j7IxJ0B6bfQ?label=%40DevOpsWithJerson&style=social)](https://www.youtube.com/@DevOpsWithJerson?sub_confirmation=1)
+
+**Canal**: https://www.youtube.com/@DevOpsWithJerson
+**LinkedIn**: [Jerson Martínez](https://www.linkedin.com/in/jersonmartinezsm/)
+**Rol**: DevOps Engineer
+**Etiquetas**: `#bash` `#linux` `#wsl` `#containers` `#docker` `#podman` `#go` `#github-actions` `#github` `#cicd`
+
+#### 🎯 Contenido Destacado
+- Ofrece contenido sobre Cloud Computing y DevOps en general, desde monitorización, automatización y despliegue
+- Tutoriales prácticos sobre Linux, Bash y WSL
+- Implementación de contenedores con Docker y Podman
+- Automatización con GitHub Actions y CI/CD
+- Desarrollo con Go y mejores prácticas DevOps
+
+---
+
 ### Amin Espinoza
 [![@AminEspinoza](https://img.shields.io/youtube/channel/subscribers/UC0YBGZw4QRRqPGb0u0E3Upg?label=%40AminEspinoza&style=social)](https://www.youtube.com/@AminEspinoza?sub_confirmation=1)
 

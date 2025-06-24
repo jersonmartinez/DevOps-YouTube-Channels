@@ -182,6 +182,19 @@
     "subscribers": null
   },
   {
+    "name": "DevOps With Jerson",
+    "author": "DevOps With Jerson",
+    "role": "",
+    "youtube": "https://www.youtube.com/@DevOpsWithJerson",
+    "channelId": "DevOpsWithJerson",
+    "linkedin": null,
+    "category": "automation",
+    "language": "es",
+    "tags": [],
+    "description": "",
+    "subscribers": null
+  },
+  {
     "name": "DevOps With Jerson ⭐ DESTACADO",
     "author": "DevOps With Jerson ⭐ DESTACADO",
     "role": "",
@@ -322,6 +335,19 @@
     "language": "es",
     "tags": [],
     "description": "AWS y Oracle Cloud | Terraform | Networking",
+    "subscribers": null
+  },
+  {
+    "name": "https://www.youtube.com/@DevOpsWithJerson",
+    "author": "https://www.youtube.com/@DevOpsWithJerson",
+    "role": "",
+    "youtube": "https://www.youtube.com/@DevOpsWithJerson",
+    "channelId": "DevOpsWithJerson",
+    "linkedin": "https://www.linkedin.com/in/jersonmartinezsm",
+    "category": "automation",
+    "language": "es",
+    "tags": [],
+    "description": "Ofrece contenido sobre Cloud Computing y DevOps en general, desde monitorización, automatización y despliegue | Tutoriales prácticos sobre Linux, Bash y WSL | Implementación de contenedores con Docker y Podman",
     "subscribers": null
   },
   {

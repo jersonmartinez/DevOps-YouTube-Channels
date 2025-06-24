@@ -1,5 +1,5 @@
 // Auto-generated channels data
-// Generated on: 2025-06-24T11:00:39.869038
+// Generated on: 2025-06-24T12:38:45.835819
 
 const channelsData = [
   {
@@ -185,6 +185,19 @@ const channelsData = [
     "subscribers": null
   },
   {
+    "name": "DevOps With Jerson",
+    "author": "DevOps With Jerson",
+    "role": "",
+    "youtube": "https://www.youtube.com/@DevOpsWithJerson",
+    "channelId": "DevOpsWithJerson",
+    "linkedin": null,
+    "category": "automation",
+    "language": "es",
+    "tags": [],
+    "description": "",
+    "subscribers": null
+  },
+  {
     "name": "DevOps With Jerson ⭐ DESTACADO",
     "author": "DevOps With Jerson ⭐ DESTACADO",
     "role": "",
@@ -325,6 +338,19 @@ const channelsData = [
     "language": "es",
     "tags": [],
     "description": "AWS y Oracle Cloud | Terraform | Networking",
+    "subscribers": null
+  },
+  {
+    "name": "https://www.youtube.com/@DevOpsWithJerson",
+    "author": "https://www.youtube.com/@DevOpsWithJerson",
+    "role": "",
+    "youtube": "https://www.youtube.com/@DevOpsWithJerson",
+    "channelId": "DevOpsWithJerson",
+    "linkedin": "https://www.linkedin.com/in/jersonmartinezsm",
+    "category": "automation",
+    "language": "es",
+    "tags": [],
+    "description": "Ofrece contenido sobre Cloud Computing y DevOps en general, desde monitorización, automatización y despliegue | Tutoriales prácticos sobre Linux, Bash y WSL | Implementación de contenedores con Docker y Podman",
     "subscribers": null
   },
   {
