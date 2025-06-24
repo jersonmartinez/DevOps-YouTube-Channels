@@ -1,83 +1,124 @@
 # 🚀 DevOps YouTube Channels
 
-A curated collection of YouTube channels focused on DevOps, Platform Engineering, Cloud Computing, and related technologies. This repository organizes channels by category and language.
+Una colección curada de canales de YouTube enfocados en DevOps, Platform Engineering, Cloud Computing y tecnologías relacionadas. Este repositorio organiza los canales por categoría e idioma.
 
-## 📋 Categories
+> 🌐 **[Ver la página web interactiva →](https://jersonmartinez.github.io/DevOps-YouTube-Channels/)**
 
-- [Platform Engineering](categories/platform-engineering.md)
-- [DevSecOps & Security](categories/devsecops.md)
-- [Containers & Orchestration](categories/containers.md)
-- [Cloud Infrastructure](categories/cloud.md)
-- [HomeLab & Self-Hosting](categories/homelab.md)
-- [Automation & IaC](categories/automation.md)
+## ✨ Características
 
-## 🌐 Language Collections
+- 📊 **Métricas actualizadas automáticamente** - Suscriptores actualizados semanalmente
+- 🔍 **Búsqueda y filtros avanzados** - Encuentra canales por tecnología, idioma o categoría
+- 🌐 **Interfaz web interactiva** - Navegación fácil sin necesidad de buscar en archivos
+- 🏷️ **Organizado por categorías** - Platform Engineering, DevSecOps, Cloud, y más
+- 🌎 **Multilenguaje** - Canales en español e inglés
 
-- [Spanish Channels](Spanish-Channels.md)
-- [English Channels](English-Channels.md)
+## 📋 Categorías
 
-## 📊 YouTube Metrics Update Workflow
+- [🏗️ Platform Engineering](categories/platform-engineering.md)
+- [🔒 DevSecOps & Security](categories/devsecops.md)
+- [🐳 Containers & Orchestration](categories/containers.md)
+- [☁️ Cloud Infrastructure](categories/cloud.md)
+- [🏠 HomeLab & Self-Hosting](categories/homelab.md)
+- [🤖 Automation & IaC](categories/automation.md)
 
-This repository includes a GitHub Actions workflow that automatically updates the metrics of the YouTube channels listed. Instead of using the YouTube API, the workflow scrapes data from [Social Blade](https://socialblade.com) to gather metrics such as subscriber count, total views, and channel growth. This approach ensures that we can retrieve data without relying on API quotas or keys.
+## 🌐 Colecciones por Idioma
 
-### How It Works
+- [🇪🇸 Canales en Español](Spanish-Channels.md)
+- [🇬🇧 English Channels](English-Channels.md)
 
-1. **Scraping Script**: A custom script scrapes channel metrics from Social Blade.
-2. **GitHub Actions**: The script is executed periodically via a scheduled GitHub Actions workflow.
-3. **Data Integration**: The scraped data is formatted and updated in the repository files (e.g., JSON or Markdown).
+## 📊 Sistema de Actualización Automática
 
-### Setup Instructions
+Este repositorio incluye un sistema automatizado que actualiza las métricas de los canales de YouTube semanalmente sin necesidad de API keys.
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-repo/DevOps-YouTube-Channels.git
-   cd DevOps-YouTube-Channels
-   ```
+### 🔧 Cómo Funciona
 
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+1. **Web Scraping Inteligente**: Obtiene métricas de múltiples fuentes públicas (Social Blade, YouTube, VidIQ)
+2. **Sin Configuración**: No requiere API keys ni secretos - funciona out-of-the-box
+3. **GitHub Actions**: Ejecuta automáticamente cada domingo y genera datos para la web
+4. **Sistema Resiliente**: Si una fuente falla, automáticamente intenta con otras
 
-3. Run the scraping script locally:
-   ```bash
-   python .github/scripts/update_subscribers.py
-   ```
+### 🚀 Configuración Rápida
 
-4. Verify the updates in the `categories` folder.
+Consulta la [guía de configuración completa](SETUP.md) para instrucciones detalladas.
 
-### Future Enhancements for Scraping
+**Configuración básica:**
+1. Fork o clona el repositorio
+2. Activa GitHub Actions (se activan por defecto)
+3. Activa GitHub Pages para la interfaz web
+4. ¡Listo! No se requiere configuración adicional
 
-- [ ] Improve the scraping script to handle changes in Social Blade's HTML structure.
-- [ ] Add error handling for unavailable or blocked pages.
-- [ ] Cache results to minimize repeated requests to Social Blade.
-- [ ] Include additional metrics like estimated earnings or video counts.
+### 📈 Métricas Disponibles
+- Conteo de suscriptores actualizado
+- Badges dinámicos en cada canal
+- Estadísticas generales del repositorio
+- Datos exportados para la web interactiva
 
-## 🤝 Contributing
+## 🤝 Cómo Contribuir
 
-We welcome contributions! Here's how you can help:
+¡Damos la bienvenida a las contribuciones! Aquí te explicamos cómo puedes ayudar:
 
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/new-channel`)
-3. Add your changes following our format
-4. Commit your changes (`git commit -m 'Add new channel'`)
-5. Push to the branch (`git push origin feature/new-channel`)
-6. Open a Pull Request
+### 📝 Añadir un Nuevo Canal
 
-## 🎯 Future Improvements
+1. **Fork** el repositorio
+2. **Crea una rama**: `git checkout -b add/nombre-del-canal`
+3. **Encuentra la categoría apropiada** en `categories/`
+4. **Añade el canal** siguiendo el formato establecido (ver [SETUP.md](SETUP.md))
+5. **Commit**: `git commit -m 'Add channel: Nombre del Canal'`
+6. **Push**: `git push origin add/nombre-del-canal`
+7. **Abre un Pull Request**
 
-- [ ] Add channel thumbnails and featured video recommendations
-- [ ] Implement a robust tagging system
-- [ ] Create a tag-based navigation page
-- [ ] Add more international channels
-- [ ] Include playlists and course recommendations
-- [ ] Improve the contribution guidelines for clarity
-- [ ] Set up a GitHub Actions workflow to update YouTube metrics
+### 🌟 Otras Formas de Contribuir
 
-## 📜 License
+- 🐛 Reportar canales inactivos o enlaces rotos
+- 💡 Sugerir nuevas categorías o mejoras
+- 🌍 Traducir documentación
+- ⭐ Dar una estrella al repositorio
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 🎯 Mejoras Implementadas y Futuras
+
+### ✅ Implementado Recientemente
+- [x] Página web interactiva con búsqueda y filtros
+- [x] Actualización automática de métricas con API de YouTube
+- [x] Sistema de caché y fallback para optimización
+- [x] Badges dinámicos de suscriptores
+- [x] Exportación de datos en múltiples formatos
+
+### 🚀 Próximas Mejoras
+- [ ] Añadir thumbnails de canales y videos destacados
+- [ ] Sistema de recomendaciones basado en tags
+- [ ] Integración con playlists educativas
+- [ ] Soporte para más idiomas (portugués, francés)
+- [ ] API pública para desarrolladores
+- [ ] Sistema de votación/ranking comunitario
+- [ ] Notificaciones de nuevos canales
+
+## 🛠️ Tecnologías Utilizadas
+
+- **Frontend**: HTML5, CSS3, JavaScript (Vanilla), Bootstrap 5
+- **Backend**: Python 3.11, GitHub Actions
+- **Web Scraping**: BeautifulSoup4, Requests, Fake-UserAgent
+- **Hosting**: GitHub Pages
+- **CI/CD**: GitHub Actions
+- **Sin dependencias externas**: No requiere API keys ni servicios de terceros
+
+## 📜 Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo [LICENSE](LICENSE) para más detalles.
+
+## 🙏 Agradecimientos
+
+- A todos los creadores de contenido que comparten su conocimiento
+- A la comunidad DevOps hispanohablante por su apoyo
+- A los contribuidores que ayudan a mantener este proyecto actualizado
 
 ---
 
-*This repository is maintained with ❤️ by the DevOps community. Last updated: April 2025*
+<div align="center">
+
+*Este repositorio es mantenido con ❤️ por la comunidad DevOps*
+
+**[⭐ Dale una estrella](https://github.com/tuusuario/DevOps-YouTube-Channels)** | **[🐛 Reportar un problema](https://github.com/tuusuario/DevOps-YouTube-Channels/issues)** | **[💡 Sugerir mejora](https://github.com/tuusuario/DevOps-YouTube-Channels/discussions)**
+
+*Última actualización: Diciembre 2024*
+
+</div>

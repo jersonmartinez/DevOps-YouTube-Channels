@@ -1,0 +1,12 @@
+# Web scraping dependencies
+beautifulsoup4==4.12.2
+requests==2.31.0
+fake-useragent==1.4.0
+
+# For environment variables (optional)
+python-dotenv==1.0.0
+
+# Standard library modules (included for documentation)
+# pathlib - Built-in
+# typing - Built-in
+# logging - Built-in 
