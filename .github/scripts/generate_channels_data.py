@@ -48,12 +48,12 @@ class ChannelExtractor:
     
     def parse_channel_section(self, section: str, category: str, language: str) -> Optional[Dict]:
         """Parse a single channel section."""
-        # Extract channel name
-        name_match = re.search(r'###\s+(.+?)(?:\n|$)|(?:\*\*Canal\*\*:|Channel:)\s*(?:\[(.+?)\]|(.+?)(?:\n|$))', section)
+        # Extract channel name - improved regex
+        name_match = re.search(r'###\s+(.+?)(?:\n|$)', section)
         if not name_match:
             return None
         
-        name = (name_match.group(1) or name_match.group(2) or name_match.group(3) or '').strip()
+        name = name_match.group(1).strip()
         if not name:
             return None
         
@@ -65,45 +65,44 @@ class ChannelExtractor:
         youtube_url = youtube_match.group(0)
         channel_id = youtube_match.group(1)
         
-        # Extract LinkedIn URL
-        linkedin_match = re.search(r'https://(?:www\.)?linkedin\.com/in/([A-Za-z0-9_-]+)', section)
+        # Extract LinkedIn URL - improved
+        linkedin_match = re.search(r'https://(?:www\.)?linkedin\.com/in/[A-Za-z0-9_-]+', section)
         linkedin_url = linkedin_match.group(0) if linkedin_match else None
         
-        # Extract author name (usually after LinkedIn or in bold)
-        author_match = re.search(r'\*\*(.+?)\*\*(?:\s*\n|$)', section)
+        # Extract author name from LinkedIn line
+        author_match = re.search(r'\*\*LinkedIn\*\*:\s*\[([^\]]+)\]', section)
+        if not author_match:
+            # Fallback: look for any bold text that might be an author
+            author_match = re.search(r'\*\*Canal\*\*:.*?\n\*\*LinkedIn\*\*:.*?\n\*\*([^*]+)\*\*', section, re.DOTALL)
+        
         author = author_match.group(1) if author_match else name
         
-        # Extract role
-        role_match = re.search(r'(?:Rol|Role):\s*(.+?)(?:\n|$)', section)
+        # Extract role - improved
+        role_match = re.search(r'\*\*(?:Rol|Role)\*\*:\s*(.+?)(?:\n|$)', section)
         role = role_match.group(1).strip() if role_match else ''
         
-        # Extract tags
-        tags_match = re.search(r'(?:Etiquetas|Tags):\s*(.+?)(?:\n|$)', section)
+        # Extract tags - improved
+        tags_match = re.search(r'\*\*(?:Etiquetas|Tags)\*\*:\s*(.+?)(?:\n|$)', section)
         tags = []
         if tags_match:
             tags_text = tags_match.group(1)
-            tags = [tag.strip('#').strip() for tag in re.findall(r'`#?([^`]+)`', tags_text)]
+            tags = [tag.strip('#').strip('`').strip() for tag in re.findall(r'`#?([^`]+)`', tags_text)]
         
-        # Extract description from featured content
+        # Extract description from featured content - improved
         description_lines = []
-        content_section = re.search(r'####\s*🎯\s*(?:Contenido Destacado|Featured Content)\s*\n((?:[-•]\s*.+\n?)+)', section)
+        content_section = re.search(r'####\s*🎯\s*(?:Contenido Destacado|Featured Content)\s*\n((?:[-•]\s*.+(?:\n|$))+)', section, re.MULTILINE)
         if content_section:
             content_items = re.findall(r'[-•]\s*(.+)', content_section.group(1))
-            description_lines = content_items[:3]  # Take first 3 items
+            description_lines = [item.strip() for item in content_items[:3]]  # Take first 3 items
         
-        description = ' | '.join(description_lines) if description_lines else f"Contenido sobre {', '.join(tags[:3])}" if tags else ""
+        description = ' | '.join(description_lines) if description_lines else f"Canal DevOps enfocado en {', '.join(tags[:3])}" if tags else "Canal de contenido DevOps"
         
         # Extract subscriber count from badge if present
-        subscribers_match = re.search(r'subscribers-(\d+[KMk]?)-', section)
+        subscribers_match = re.search(r'subscribers/([A-Za-z0-9_-]+)\?', section)
         subscribers = None
         if subscribers_match:
-            sub_text = subscribers_match.group(1)
-            if sub_text.endswith(('K', 'k')):
-                subscribers = int(float(sub_text[:-1]) * 1000)
-            elif sub_text.endswith('M'):
-                subscribers = int(float(sub_text[:-1]) * 1000000)
-            else:
-                subscribers = int(sub_text)
+            # This is the channel ID from the badge, we'll use it for consistency
+            pass
         
         return {
             'name': name,
